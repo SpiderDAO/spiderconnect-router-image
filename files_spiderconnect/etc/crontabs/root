@@ -1,0 +1,8 @@
+# m h  dom mon dow   command
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=""
+0 * * * * sleep $(/usr/bin/awk 'BEGIN{srand();print int(rand()*60*30)}') && /usr/bin/php-cgi -f /www/api/credentials.php
+* * * * * /usr/bin/php-cgi -f /www/config_api.php "freespace=1"
+*/15 * * * *  (sleep 30; /bin/ping -c1 -w5 spidervpn.org 2>&1 || /bin/ping -c1 -w5 one.one.one.one 2>&1 || /bin/ping -c1 -w5 wiki.org 2>&1) || /sbin/reboot
+* * * * * ubus call network.wireless status | grep -e \"up\" -e pending | grep true || wifi #wifi hang after boot fix

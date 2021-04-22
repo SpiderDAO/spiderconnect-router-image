@@ -1,0 +1,1 @@
+1) Please make sure the ethernet cable from ISP is properly connected to Spider Router’s Blue WAN Port<br/>2) Make sure you’re connected to SpiderVPN 2.4G or SpiderVPN 5.8G Wi-Fi.<br/>3) Make sure the ethernet cable from Spider Router is properly connected to your laptop/PC

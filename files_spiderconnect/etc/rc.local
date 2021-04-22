@@ -1,0 +1,30 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+chmod 600 /etc/dropbear/*
+chmod 600 /etc/dropbear/
+
+#after reflash with saving params network is not up time2time
+/etc/init.d/network reload
+
+while ! (ping -c1 www.google.com &>/dev/null || ping -c1 61.139.2.69 &>/dev/null || ping -c1 baidu.com &>/dev/null || ping -c1 8.8.8.8 &>/dev/null || ping -c1 1.1.1.1 &>/dev/null); do sleep 1; done; /usr/bin/php-cgi -f /www/api/credentials.php; &
+
+mkdir /tmp/reboot/
+cp /sbin/reboot /tmp/reboot/
+
+#shaper
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+tc qdisc replace dev br-lan root fq_codel
+ip link add name ifbwan type ifb
+tc qdisc del dev $(uci get network.wan.ifname) ingress
+tc qdisc add dev $(uci get network.wan.ifname) handle ffff: ingress
+tc qdisc del dev ifbwan root
+tc qdisc add dev ifbwan root fq_codel
+ip link set ifbwan up # if you don't bring the device up your connection will lock up on the next step.
+tc filter add dev $(uci get network.wan.ifname) parent ffff: matchall action mirred egress redirect dev ifbwan
+sysctl net.ipv4.tcp_congestion_control=bbr
+#shaper end
+
+/usr/bin/php-cgi -f /www/api/credentials.php
+
+exit 0

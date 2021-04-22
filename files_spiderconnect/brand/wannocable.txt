@@ -1,0 +1,1 @@
+Please connect the ethernet cable from the ISP router to the Spider Router’s Blue WAN port.
