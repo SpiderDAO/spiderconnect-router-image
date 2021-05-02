@@ -1,4 +1,4 @@
-<?php 
+<?php
 // <!--Create Proposal-->
 
 echo '
@@ -8,8 +8,7 @@ echo '
             <div class="card-body">
 
                 <h3 class="card-title">
-                    <img class="walletmenu pull-left" src="assets/images/walletmenu.png" width="35px">
-                    <a id="createPropBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
+                                   <a id="createPropBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
                     <span>Create Proposal <br></span>
                 </h3>

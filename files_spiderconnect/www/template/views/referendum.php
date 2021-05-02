@@ -1,4 +1,4 @@
-<?php 
+<?php
 // <!--Referendum div-->
 
 echo '
@@ -8,7 +8,6 @@ echo '
             <div class="card-body">
 
                 <h3 class="card-title">
-                    <img class="walletmenu pull-left" src="assets/images/walletmenu.png" width="35px">
                     <a id="referendumBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
                     <span>REFERENDUM <br></span>

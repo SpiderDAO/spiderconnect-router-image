@@ -8,7 +8,8 @@ echo '
             <div class="card-body">
 
                 <h3 class="card-title text-center">
-                    <span>Your Address <br></span>
+                <a id="cancelReceiveBtn"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
+                    <span>Your Address<br></span>
                 </h3>
                 <div class="container px-3">
                     <div class="row mr-auto">
@@ -16,7 +17,7 @@ echo '
 
                             <label for="address">Address</label>
                             <div class="input-group">
-                                <input id="userAddress" type="text" class="input-new-with-copy form-control"
+                                <input id="userAddress" type="text" readonly class="input-new-with-copy form-control"
                                        value="'.$address.'">
                                 <div class="input-group-append">
                                     <button id="copyClipboard" class="btn btn-outline-secondary btn-copy" type="button">
@@ -25,10 +26,11 @@ echo '
                                 </div>
                             </div>
                         </div>
-
+                        <!--
                         <div class="col-md-12">
                             <a class="btn btn-primary btn-block mb-4" id="cancelReceiveBtn">Go back </a>
                         </div>
+                        -->
 
                     </div>
                 </div>

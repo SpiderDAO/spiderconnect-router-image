@@ -8,23 +8,26 @@ echo '
             <div class="card-body">
 
                 <h2 class="card-title text-center">
-                    Enter receiver\'s ERC20 Address
+                <a id="cancelSendBtn"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
+                    Enter receiver\'s $SPDR Address
 
                 </h2>
                 <form id="sendForm" class="row ml-1 mr-1">
                     <div class="form-group col-md-12">
-                        <label for="balance">Input ERC20 Address</label>
+                        <label for="balance">Input $SPDR Address</label>
                         <input id="ecrAddress" type="text" class="form-control input-new" value="">
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="balance">Value</label>
+                        <label for="balance">Amount</label>
                         <input id="sendValue" type="text" class="form-control input-new" value="">
                     </div>
+                    <!--
                     <div class="form-group col-md-6">
                         <label class="btn btn-primary btn-block" id="cancelSendBtn"> Go back</label>
                     </div>
-                    <div class="form-group col-md-6">
-                        <button class="btn btn-primary btn-block"> Send</button>
+                    -->
+                    <div class="form-group col">
+                        <button class="btn btn-primary btn-block">Send</button>
                     </div>
                 </form>
             </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 // <!--show proposal-->
 
 echo '
@@ -8,10 +8,9 @@ echo '
             <div class="card-body">
 
                 <h3 class="card-title">
-                    <img class="walletmenu pull-left" src="assets/images/walletmenu.png" width="35px">
                     <a id="choosePropBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
-                    <span>Choose Proposal <br></span>
+                    <span>Choose a Proposal <br></span>
                 </h3>
 
                 <div id="allProp" class="col-md-12" style="max-height: 300px;overflow-y: scroll;">

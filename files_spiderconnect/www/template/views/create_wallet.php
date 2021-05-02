@@ -17,7 +17,7 @@ echo '
 
                             <label for="address">Address</label>
                             <div class="input-group">
-                                <input id="walletAddressText" type="text" class="input-new-with-copy form-control"
+                                <input id="walletAddressText" readonly type="text" class="input-new-with-copy form-control"
                                        value=""
                                        aria-label="Recipient\'s username">
                                 <div class="input-group-append">
@@ -29,13 +29,13 @@ echo '
                         </div>
                         <div class="form-group col-md-12">
                             <label for="balance">Balance</label>
-                            <input id="walletBalanceText" type="text" class="form-control input-new" value="">
+                            <input id="walletBalanceText" type="text" class="form-control input-new" value="" readonly>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="balance">Mnemonic</label>
                             <div class="input-group">
                                 <input id="walletMnemonicText" class="form-control input-new-with-copy"
-                                       id="walletBalanceText">
+                                       id="walletBalanceText" readonly>
                                 <div class="input-group-append">
                                     <button id="copyClipboard" class="btn btn-outline-secondary btn-copy" type="button">
                                         <li class="fa fa-clone"></li>
@@ -47,7 +47,7 @@ echo '
                             <label for="balance">Public Key</label>
                             <div class="input-group">
                                 <input id="walletPublicKeyText" class="form-control input-new-with-copy"
-                                       id="walletBalanceText">
+                                       id="walletBalanceText" readonly>
                                 <div class="input-group-append">
                                     <button id="copyClipboard" class="btn btn-outline-secondary btn-copy" type="button">
                                         <li class="fa fa-clone"></li>
@@ -59,7 +59,7 @@ echo '
                             <label for="balance">Private Key</label>
                             <div class="input-group">
                                 <input id="walletPrivateKeyText" class="form-control input-new-with-copy"
-                                       id="walletBalanceText">
+                                       id="walletBalanceText" readonly>
                                 <div class="input-group-append">
                                     <button id="copyClipboard" class="btn btn-outline-secondary btn-copy" type="button">
                                         <li class="fa fa-clone"></li>
@@ -68,7 +68,8 @@ echo '
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <a class="btn btn-primary btn-block mb-4" id="goToProposalMain">GoTo Proposal </a>
+                        <div style="background-color: red;font-size: 20px; font-color: white;" class="mb-2">Make sure you saved the wallet info in a safe location</div>
+                            <a class="btn btn-primary btn-block mb-4" id="goToProposalMain">Go to Proposals</a>
                         </div>
 
                     </div>

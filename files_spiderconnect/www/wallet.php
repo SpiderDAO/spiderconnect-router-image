@@ -5,7 +5,11 @@ require_once('layout/content.php');
 echo '
 <div class="overlay"></div>
 <div class="spanner show">
-    <div class="loader"></div>
+    <h2 style="position: relative;top: 35%;left: 0">Please wait while your request is processing</h2>
+
+    <div class="loader">
+
+</div>
 </div>';
 
 require_once('template/views/wallet.php');
@@ -129,9 +133,12 @@ echo '
             $("#proposal").show()
             $(".modFun").remove()
             $(".funArg").remove()
-            $(".funArg").remove()
+            $("#createPropFormSelect").find("option").remove()
             $("#submitProp").remove()
-
+        });
+        $("#sendrecvBack").click(function () {
+            $("#sendReceiveDiv").hide()
+            $("#proposal").show()
         });
 		';
 
@@ -243,13 +250,14 @@ echo '
                 $("#proposal").hide()
                 $("#createProposal").show()
                 var modules = Object.keys(data)
+
                 allModules = data
                 $.each(data, function (index, value) {
                     $(\'#createPropFormSelect\').append(\'<option value=\' + index + \'>\' + index + \'</option>\');
                 });
                 $.each(data[modules[0]], function (index, value) {
                     console.log(value.doc)
-                    $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn"  id=\' + index + \'>\' + index + \'</label></div>\');
+                    $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + value.doc + \'</div></div>\');
 
                 });
             }).fail(function () {
@@ -260,6 +268,8 @@ echo '
 
         $("#createPropForm").on("click", "label", function () {
 
+            $("modFunbtn").removeClass("selected");
+            $(this).addClass("selected");
             $(".funArg").remove()
             $("#callID").val(this.id)
             moduleFunctionArg = allModules[$("#createPropFormSelect").val()][this.id]["args"]
@@ -274,7 +284,7 @@ echo '
             $(".modFun").remove()
             $(".funArg").remove()
             $.each(allModules[this.value], function (index, value) {
-                $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" id=\' + index + \'>\' + index + \'</label></div>\');
+                $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + value.doc + \'</div></div>\');
 
             });
         });
@@ -319,7 +329,7 @@ echo '
                 }
                 $("#createProposal").hide()
                 hideOverlay()
-                $("div#PropConfirmMessage").html("<h3>By confirming this, your proposal will be sent out. Storage fee was"+ data.storageFee +" SPDR.</h3>")
+                $("div#PropConfirmMessage").html("<h3>Storage fee is "+ data.storageFee +" SPDR</h3>")
                 $("#confirmDiv").show();
                 preimage_hash = data.preimage_hash
 
@@ -599,7 +609,7 @@ return false;
                 $("#showReferendum").hide()
                     hideOverlay()
                   $("#successDiv").show()
-        $("div#successMessage").html("<h3>You Vote "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
+        $("div#successMessage").html("<h3>You have voted "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
         $("#backSuccess").click(function(){
         $("#successDiv").hide()
          $("div#successMessage").html("")
@@ -651,7 +661,7 @@ return false;
                 $("#showReferendum").hide()
                     hideOverlay()
                   $("#successDiv").show()
-        $("div#successMessage").html("<h3>You Vote "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
+        $("div#successMessage").html("<h3>You have voted "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
         $("#backSuccess").click(function(){
         $("#successDiv").hide()
          $("div#successMessage").html("")
@@ -740,9 +750,9 @@ return false;
             }).done(function (data) {
                 hideOverlay()
                 if (data.success)
-                    $(\'<div id="sendMessage" class="col-md-12 badge badge-dark" style="word-wrap: break-word;white-space: normal !important;">\' + data.success + \'</div>\').insertAfter(\'#sendValue\')
+                    $(\'<div id="sendMessage" class="col-md-12 badge badge-dark" style="font-size: 15px; word-wrap: break-word;white-space: normal !important;">\' + data.success + \'</div>\').insertAfter(\'#sendValue\')
                 if (data.error)
-                    $(\'<div id="sendMessage" class="col-md-12 badge badge-danger" style="word-wrap: break-word;white-space: normal !important;">\' + data.error + \'</div>\').insertAfter(\'#sendValue\')
+                    $(\'<div id="sendMessage" class="col-md-12 badge badge-danger" style="font-size: 15px;word-wrap: break-word;white-space: normal !important;">\' + data.error + \'</div>\').insertAfter(\'#sendValue\')
 
                 console.log(data)
 

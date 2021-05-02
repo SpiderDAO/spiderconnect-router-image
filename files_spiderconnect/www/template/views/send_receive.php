@@ -8,6 +8,7 @@ echo '
             <div class="card-body">
 
                 <h2 class="card-title">
+                <a id="sendrecvBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
                     <span>Balance <br></span>
                     <span class="balance"> '.(int)file_get_contents("/tmp/lastbalance").' SPDR</span>
                 </h2>

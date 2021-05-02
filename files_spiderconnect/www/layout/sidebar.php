@@ -1,5 +1,5 @@
 <?php 
-echo '<div class="left-sidebar">
+echo '<div class="left-sidebar" style="position:fixed; id="collapsibleNavbar">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->

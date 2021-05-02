@@ -55,18 +55,20 @@ echo '
 												<a style="text-decoration: underline;" href="'.file_get_contents("/brand/reghere.txt").'" target="_blank">Register here</a>
 											</div>
 										</div>
-										<table width="100%">
-											<tr>
-												<td width="50%">
-													<a href="/wan-setup.php">
-														<button type="button" class="btn btn-default" style="background: black;">Setup WAN</button>
-													</a>
-												</td>
-												<td width="50%">
-													<button type="submit" class="btn btn-default">Activate</button>
-												</td>
-											</tr>
-										</table>
+                                        <table width="80%">
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="/wan-setup.php">
+                                                    <button type="button" class="btn btn-default mx-auto px-auto" style="background: black;font-size: 14px;width:95%;">Setup WAN</button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-default mx-auto px-auto w-90 pull-left  text-center" style="text-align: center;">Activate</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
                                     </div>
 									
                                 </form>
