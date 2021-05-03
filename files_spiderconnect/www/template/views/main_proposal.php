@@ -21,10 +21,10 @@ echo '
                     <a class="btn btn-primary btn-block mt-2 mb-2" id="createPropBtn">Create a Proposal</a>
                 </div>
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block my-2" id="get_props2">Choose a Proposal</a>
+                    <a class="btn btn-primary btn-block my-2" id="get_props2">Proposals</a>
                 </div>
                 <div class="col-md-12">
-                    <button class="btn btn-primary btn-block mt-2 mb-5" id="get_refs">Vote on a Referendum</button>
+                    <button class="btn btn-primary btn-block mt-2 mb-5" id="get_refs">Referendums</button>
                 </div>
 
             </div>

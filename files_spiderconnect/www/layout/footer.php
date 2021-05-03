@@ -6,7 +6,7 @@ $lan = get_lan_connection_info();
 echo '
 
 </div>
-<footer class="footer" style="display: none;"> © 2021 Spider vpn All Right Reserved.</footer>
+<footer class="footer" style="display: none;"> © '.date("Y").' Spider vpn All Right Reserved.</footer>
 <!-- End footer -->
 </div>
 <!-- End Page wrapper  -->
@@ -116,7 +116,7 @@ echo '
 
 
 <div class="footer-con">
-    <p>&nbsp;&nbsp;&nbsp;Version 0.2
+    <p>&nbsp;&nbsp;&nbsp;Version 0.3
     </p>
 
 </div>

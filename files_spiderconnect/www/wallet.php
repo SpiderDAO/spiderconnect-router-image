@@ -257,7 +257,8 @@ echo '
                 });
                 $.each(data[modules[0]], function (index, value) {
                     console.log(value.doc)
-                    $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + value.doc + \'</div></div>\');
+					var doc = value.doc;
+                    $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + doc + \'</div></div>\');
 
                 });
             }).fail(function () {
@@ -284,7 +285,12 @@ echo '
             $(".modFun").remove()
             $(".funArg").remove()
             $.each(allModules[this.value], function (index, value) {
-                $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + value.doc + \'</div></div>\');
+				var doc = value.doc;
+				//alert(index);
+				if (index == "propose_bounty") {
+					doc = "Here, you can create a custom proposal that will be presented to the community in the form of a referendum for their consideration. Your proposal will be voted on and the outcome will be decided after a set period of time. Custom proposals can include bounties awarded for a positive outcome.";
+				}
+                $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + doc + \'</div></div>\');
 
             });
         });

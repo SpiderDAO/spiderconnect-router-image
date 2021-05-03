@@ -561,7 +561,7 @@ h6 {
 }
 
 .header {
-    position: fixed;
+    position: relative;
     z-index: 50;
     width:100%;
     background: #016c66;
