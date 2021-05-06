@@ -257,7 +257,13 @@ echo '
                 });
                 $.each(data[modules[0]], function (index, value) {
                     console.log(value.doc)
+					//alert(index);
 					var doc = value.doc;
+					if (index == "transfer") {
+						doc = "Here, you can propose to send funds to another member directly to his wallet from your own account. This transaction can be put as proposition to the community for their approval or disapproval.";
+					} else if (index == "propose_bounty") {
+						doc = "Here, you can create a custom proposal that will be presented to the community in the form of a referendum for their consideration. Your proposal will be voted on and the outcome will be decided after a set period of time. Custom proposals can include bounties awarded for a positive outcome.";
+					}
                     $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + doc + \'</div></div>\');
 
                 });
@@ -287,7 +293,9 @@ echo '
             $.each(allModules[this.value], function (index, value) {
 				var doc = value.doc;
 				//alert(index);
-				if (index == "propose_bounty") {
+				if (index == "transfer") {
+					doc = "Here, you can propose to send funds to another member directly to his wallet from your own account. This transaction can be put as proposition to the community for their approval or disapproval.";
+				} else if (index == "propose_bounty") {
 					doc = "Here, you can create a custom proposal that will be presented to the community in the form of a referendum for their consideration. Your proposal will be voted on and the outcome will be decided after a set period of time. Custom proposals can include bounties awarded for a positive outcome.";
 				}
                 $(\'#createPropForm\').append(\'<div class="form-group col-md-6 modFun"> <label class="form-control btn btn-block modFunbtn" tabindex="1" id=\' + index + \'>\' + value.display_name + \'</label><div class="hideDesc">\' + doc + \'</div></div>\');

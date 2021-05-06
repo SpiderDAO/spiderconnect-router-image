@@ -18,9 +18,9 @@ echo '
     <title>'.file_get_contents("/brand/brand.txt").' Admin</title>
     <!-- Custom CSS -->
 	
-	<link href="assets/css/web-styles.css" rel="stylesheet">
-	<link href="assets/css/web-styles-whitelabel.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/web-styles.css?_='.time().'" rel="stylesheet">
+	<link href="assets/css/web-styles-whitelabel.css?_='.time().'" rel="stylesheet">
+    <link href="assets/css/style.css?_='.time().'" rel="stylesheet">
 	<!-- All Jquery -->
 	<script src="assets/js/lib/jquery/jquery.min.js"></script>
 </head>

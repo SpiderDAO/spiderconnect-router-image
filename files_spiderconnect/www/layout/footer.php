@@ -116,7 +116,7 @@ echo '
 
 
 <div class="footer-con">
-    <p>&nbsp;&nbsp;&nbsp;Version 0.3
+    <p>&nbsp;&nbsp;&nbsp;Version 0.55
     </p>
 
 </div>
