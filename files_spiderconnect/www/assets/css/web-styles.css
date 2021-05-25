@@ -824,7 +824,11 @@ ul.mod-list-btn.mod-list-blcok li a i.fa {
     display:none;
 }
 
-.upload-btn a.turn_on {background: black;}
+.upload-btn a.turn_on {
+	background: black;
+	color: red;
+	white-space: nowrap;
+}
 
 .upload-btn a {
     padding: 10px 30px 10px 60px;
@@ -845,7 +849,7 @@ ul.mod-list-btn.mod-list-blcok li a i.fa {
 
 .upload-btn a:before {
     content: "\2718";
-	color: black;
+	color: #8b0023;
 	padding: 7px;
     height: 40px;
     background: #fff;
@@ -868,13 +872,15 @@ a.turn_connect {
     left: auto;
     background: #016C66;
 	content: "";
+	white-space: nowrap;
 }
 
 a.turn_finish {
     background: #01ab8e;
     color: #000;
     padding: 10px 60px 10px 30px;
-	color: white;
+	color: chartreuse;
+	white-space: nowrap;
 }
 
 .upload-btn a.turn_finish:before {

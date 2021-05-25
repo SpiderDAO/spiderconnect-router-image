@@ -33,7 +33,7 @@ echo '
 
 
 <div class="footer-con">
-    <p>&nbsp;&nbsp;&nbsp;Version 0.62
+    <p>&nbsp;&nbsp;&nbsp;Version 0.63
     </p>
 
 </div>
@@ -159,7 +159,7 @@ echo '
 			en: {
 				translation: {
 					lng: {
-						turn_on: "Home",
+						turn_on: "VPN Not Connected",
 						turn_on_title: "Press to select VPN location",
 						you_are_protected: "You are not protected",
 						select_location: "Select Location",
@@ -351,12 +351,12 @@ echo '
 			ru: {
 				translation: {
 					lng: {
-						turn_on: "Включить",
+						turn_on: "VPN Не Подключен",
 						turn_on_title: "Нажмите для выбора локации VPN",
 						you_are_protected: "Вы не защищены",
 						select_location: "Выбор локации",
 						connecting: "Подключаюсь",
-						connected: "Подключен",
+						connected: "VPN Подключен",
 						not_secure: "Ваше подключение не защищено",
 						on: "Включено",
 						off: "Выключено",
