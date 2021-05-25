@@ -18,7 +18,7 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div id="goback"><a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </div>
                         <div class="remote-form">
@@ -27,25 +27,25 @@ echo '
 if (isset($_GET['success'])) { 
 echo '
                                 <div class="remote-head remote-head-1">
-                                    <h4>Parameters have been successfully updated.</h4>
+                                    <h4 data-i18n="lng.paramsupdated">Parameters have been successfully updated.</h4>
                                 </div>
                             ';
 } else {
 echo '
                             <div class="remote-head remote-head-1">
-                                <h3>Kill Switch</h3>
-                                <h4>With this enabled, it will automatically cut your connection from the internet if VPN fails. It protects your original IP from getting exposed.</h4>
+                                <h3 data-i18n="lng.killswith">Kill Switch</h3>
+                                <h4 data-i18n="lng.killswith2">With this enabled, it will automatically cut your connection from the internet if VPN fails. It protects your original IP from getting exposed.</h4>
                             </div>
                             <div class="remote-form-inn">
                                 <form class="" action="/api/params.php" method="post">
                                     <div class="form-group">
                                         <select class="form-control placeholder-wh" name="killswitch">
-											<option value="pass" >Disabled</option>
-											<option value="block" <?php if (get_killswitch_status() == "block") { echo "selected"; } ?>>Enabled</option>
+											<option value="pass"  data-i18n="lng.disabled">Disabled</option>
+											<option value="block" data-i18n="lng.on" <?php if (get_killswitch_status() == "block") { echo "selected"; } ?>>Enabled</option>
 										</select>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-default">Save Changes</button>
+                                        <button type="submit" class="btn btn-default" data-i18n="lng.savechanges">Save Changes</button>
                                     </div>
 
                                     ';

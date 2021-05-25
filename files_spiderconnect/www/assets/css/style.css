@@ -587,7 +587,7 @@ h6 {
 .header .top-navbar .navbar-header .navbar-brand {
     margin-right: 0;
     padding-bottom: 0;
-    padding-top: 0;
+    padding-top: 10px;
 }
 
 .header .top-navbar .navbar-header .navbar-brand .light-logo {
@@ -1053,12 +1053,31 @@ textarea {
         -webkit-flex-wrap: nowrap !important;
     }
 }
-
+.navbar-toggler {
+	padding: 0px;
+}
+.navbar-nav {
+	display: none;
+}
+.navbar-header {
+	opacity: 0;
+}
+@media (max-width: 800px) {
+	#refresh-btn {
+		padding-top: 12px;
+	}
+}
 @media (max-width: 767px) {
     .header {
         position: fixed;
         width: 100%;
     }
+	.header-top {
+		width: 100% !important;
+	}
+	#refresh-btn {
+		padding-top: 5px;
+	}
     .header .top-navbar {
         padding-right: 15px;
         -webkit-box-orient: horizontal;
@@ -1084,6 +1103,7 @@ textarea {
         -webkit-flex-direction: row;
         -ms-flex-direction: row;
         flex-direction: row;
+		display: none;
     }
     .header .top-navbar .navbar-nav>.nav-item.show {
         position: static;

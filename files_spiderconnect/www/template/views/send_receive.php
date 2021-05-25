@@ -9,18 +9,18 @@ echo '
 
                 <h2 class="card-title">
                 <a id="sendrecvBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
-                    <span>Balance <br></span>
+                    <span data-i18n="lng.balance">Balance <br></span>
                     <span class="balance"> '.(int)file_get_contents("/tmp/lastbalance").' SPDR</span>
                 </h2>
                 <div class="row ml-1 mr-1">
                     <div class="form-group col-md-6">
-                        <button class="btn btn-primary btn-block" id="sendBtn"> Send</button>
+                        <button class="btn btn-primary btn-block" id="sendBtn" data-i18n="lng.send"> Send</button>
                     </div>
                     <div class="form-group col-md-6">
-                        <button class="btn btn-primary btn-block" id="receiveBtn"> Receive</button>
+                        <button class="btn btn-primary btn-block" id="receiveBtn" data-i18n="lng.receive"> Receive</button>
                     </div>
                     <div class="form-group col-md-12">
-                        <button class="btn btn-primary btn-block" id="sendReceiveProposal"> Proposal</button>
+                        <button class="btn btn-primary btn-block" id="sendReceiveProposal" data-i18n="lng.proposals"> Proposal</button>
                     </div>
                 </div>
             </div>

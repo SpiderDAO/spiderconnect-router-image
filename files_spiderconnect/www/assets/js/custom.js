@@ -1,5 +1,5 @@
 function ConfirmFactoryReset(){
-    return confirm('Are you sure you want to reset your router to Factory Default Settings?');
+    return confirm(i18next.t("lng.surefactoryreset"));
 }
 
 jQuery(document).ready(function () {
@@ -24,8 +24,8 @@ jQuery(document).ready(function () {
     jQuery('.view-screen-select .dropdown-menu li a').click(function () {
         var server_id = $(this).attr('data-server_id');
         jQuery('#third-connect').hide();
-        jQuery('#second-connect img').attr('title', 'Connecting...');
-        jQuery('#second-connect .turn_connect').html('Connecting...');
+        jQuery('#second-connect img').attr('title', i18next.t("lng.connecting")+'...');
+        jQuery('#second-connect .turn_connect').html(i18next.t("lng.connecting")+'...');
 
         jQuery('.home-screen-select').removeClass('on');
         jQuery('.moverlay').hide();
@@ -68,8 +68,8 @@ jQuery(document).ready(function () {
         jQuery('#third-connect').hide();
         jQuery('.spinner-overlay').show();
         jQuery('#second-connect').show();
-        jQuery('#second-connect img').attr('title', 'Disconnecting...');
-        jQuery('#second-connect .turn_connect').html('Disconnecting...');
+        jQuery('#second-connect img').attr('title', i18next.t("lng.disconnecting")+'...');
+        jQuery('#second-connect .turn_connect').html(i18next.t("lng.disconnecting")+'...');
         
 		jQuery('#logooff').hide();
 		jQuery('#logoon').hide();

@@ -10,7 +10,7 @@ echo '
                 <h3 class="card-title">
                     <a id="referendumBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
-                    <span>REFERENDUM <br></span>
+                    <span data-i18n="lng.referendum">Referendum/span>
                 </h3>
 
                 <div id="allRef" class="col-md-12" style="max-height: 300px;overflow-y: scroll;">

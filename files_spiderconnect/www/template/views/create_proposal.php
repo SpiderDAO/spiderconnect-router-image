@@ -10,7 +10,7 @@ echo '
                 <h3 class="card-title">
                                    <a id="createPropBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
-                    <span>Create Proposal <br></span>
+                    <span data-i18n="lng.createproposal">Create Proposal</span>
                 </h3>
 
                 <form id="createPropForm" class="row col-md-12 mr-auto" style="height: 100%">

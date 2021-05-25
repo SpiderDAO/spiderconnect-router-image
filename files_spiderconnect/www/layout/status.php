@@ -32,25 +32,14 @@ echo '
 	
 </style>
 
-<script>
-
-var brand      = "'.file_get_contents("/brand/brand.txt").'";
-var shortbrand = "'.file_get_contents("/brand/shortbrand.txt").'";
-var wannocable = "'.file_get_contents("/brand/wannocable.txt").'";
-var wanunknown = "'.file_get_contents("/brand/wanunknown.txt").'";
-var feedback   = "'.file_get_contents("/brand/feedback.txt").'";
-var ipinfo     = "'.file_get_contents("/brand/ipinfo.txt").'";
-
-</script>
-
-            <div class="header-top" style="width: 75%; font-size: 16px; display:table;'.($page1?"padding: 10px;":"").'">
+            <div class="header-top" style="width: 100%; font-size: 16px; display:table;'.($page1?"padding: 10px;":"").'">
 				
 
 				<span style="color: white;  width: 40%; text-align: center; display:table-cell; vertical-align:middle;     padding-top: 5px;">
 					<label>
 						<span id="ping1" class="dot grey">
 						</span>
-						<span id="ping1label" style="position: relative; bottom: 1px;">
+						<span id="ping1label" style="position: relative; bottom: 1px;" data-i18n="lng.checking_wan_state">
 							Checking WAN state...
 						<span>
 					</label>
@@ -59,7 +48,7 @@ var ipinfo     = "'.file_get_contents("/brand/ipinfo.txt").'";
 					<label>
 						<span id="ping2" class="dot grey">
 						</span>
-						<span id="ping2label" style="position: relative; bottom: 1px;">
+						<span id="ping2label" style="position: relative; bottom: 1px;" data-i18n="lng.checking_vpn_state">
 							Checking VPN state...
 						<span>
 					</label>
@@ -73,16 +62,5 @@ var ipinfo     = "'.file_get_contents("/brand/ipinfo.txt").'";
 
 
 ';
-
-
-
-
-
-
-
-
-
-
-
 
 ?>

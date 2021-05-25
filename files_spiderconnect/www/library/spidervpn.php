@@ -17,7 +17,17 @@ class spidervpn
 		
 		file_put_contents("/tmp/signin.flag", $wgprofile."\n".$email."\n".$password);
 		
-        return json_decode($response);
+		$response = json_decode($response);
+		if ($response !== false && !empty($response) && $response != "null" && $wgprofile != "NULL") {
+			//normal answer
+		} else {
+			$curl2 = new curl();
+			$response = $curl2->execute(SPIDERVPN_API_BACKUP_URL . 'auth/login', 'POST', ['email' => $email, 'password' => $password]);
+			file_put_contents("/tmp/2sign_in.log", $response."\n".$email."\n".$password);
+			$response = json_decode($response);
+		}
+		
+        return $response;
     }
 
     public function get_updates()

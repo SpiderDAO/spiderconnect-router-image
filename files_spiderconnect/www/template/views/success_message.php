@@ -10,7 +10,7 @@ echo '
              <h3 class="card-title">
 
 
-                    <span>Success</span>
+                    <span data-i18n="lng.success">Success</span>
                 </h3>
                    <div class="col-md-12 mt-2 mb-2" id="successMessage">
 

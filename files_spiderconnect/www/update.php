@@ -24,35 +24,35 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div id="goback"><a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </div>
                         <div class="remote-form">
 							<form class="" action="/api/update.php" enctype="multipart/form-data" method="post">
 								<div class="remote-head remote-head-1">
 
-									<h3>Update your<br>'.file_get_contents("/brand/brand.txt").'<br>to Latest Software</h3>
+									<h3 data-i18n="lng.updatefirmware2">Update your '.file_get_contents("/brand/brand.txt").'<br>to Latest Software</h3>
 								</div>
 								<div style="text-align: center; margin: auto; ">
-									<button type="button" onclick="document.getElementById(\'file\').click()" style="width:220px; height:30px;">Click to select firmware upgrade</button>
+									<button type="button" onclick="document.getElementById(\'file\').click()" style="width:220px; height:30px;"  data-i18n="lng.updatefirmware3">Click to select firmware upgrade</button>
 									<div id="selectedfw" style="color: white;"><br/>
 									</div>
 									<br/>
 									<input type="file" id="file" onchange="fwFileSelected()"  name="file"
 									style="text-align: left; margin: auto; color: white; display:none" />
 									<div>
-										<h3 style="color: white; font-size: 18px; font-weight: normal;">Keep User Settings?</h3>
+										<h3 style="color: white; font-size: 18px; font-weight: normal;" data-i18n="lng.updatefirmware4">Keep User Settings?</h3>
 									</div>
 								</div>
 								<div class="remote-form-inn">
 									<div class="form-group">
 										<select class="form-control placeholder-wh" name="userparams">
-											<option value="keep" >Keep settings</option>
-											<option value="remove" >Remove settings</option>
+											<option value="keep"   data-i18n="lng.keepsettings" >Keep settings</option>
+											<option value="remove" data-i18n="lng.removesetting">Remove settings</option>
 										</select>
 									</div>
 									<div class="form-group">
-										<button type="submit" class="btn btn-default">Submit</button>
+										<button type="submit" class="btn btn-default" data-i18n="lng.submit">Submit</button>
 									</div>
 								</div>
 							</form>

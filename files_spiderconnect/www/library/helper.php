@@ -71,46 +71,6 @@ function subnet($mask)
     return $subnet_mask[$mask];
 }
 
-function get_lan_connection_info()
-{
-    $command = 'ifstatus lan';
-    $cli = new cli;
-    $info = json_decode($cli->execute($command));
-    $lan_info = [
-        'ip' => 'Cable Not Connected',
-        'subnet' => '',
-    ];
-    if ($info->up === true) {
-        $lan_info['ip'] = $info->{'ipv4-address'}[0]->address;
-        $lan_info['subnet'] = subnet($info->{'ipv4-address'}[0]->mask);
-
-    }
-    return (object)$lan_info;
-}
-
-function get_wan_connection_info()
-{
-    $command = 'ifstatus wan';
-    $cli = new cli;
-    $info = json_decode($cli->execute($command));
-    $wan_info = [
-        'ip' => 'Cable Not Connected',
-        'subnet' => '',
-        'gateway' => '',
-        'dns' => ''
-    ];
-    if ($info->up === true) {
-        $wan_info['ip'] = $info->{'ipv4-address'}[0]->address;
-        $wan_info['gateway'] = $info->route[0]->target;
-        $wan_info['subnet'] = subnet($info->{'ipv4-address'}[0]->mask);
-
-        foreach ($info->{'dns-server'} as $dns) {
-            $wan_info['dns'] .= $dns . "<br>";
-        }
-    }
-    return (object)$wan_info;
-}
-
 function get_advmode_status()
 {
 	
@@ -502,18 +462,10 @@ function set_dns_servers($stop_wg0_first = false)
 	
 	//exec("time sh -c \"while ubus call network.interface.wan status | grep -q '\\\"pending\\\": true'; do sleep 1; echo .; done\"");
 	
-    if (file_exists("/email.auth")) {
-        //what for restart network if user just activating the router?
-        exec(
-            "( \
-		" .
-                ($viatunnel ? "" : "killall ssh; killall ssh2;") .
-                " \
-		sleep 1; " .
-                ($stop_wg0_first
-                    ? "/bin/ubus call network.interface.wg0 down;"
-                    : "") .
-                " \
+	if (file_exists("/email.auth")) { //what for restart network if user just activating the router?
+		exec("( \
+		".($viatunnel?"":"killall ssh; killall ssh2;")." \
+		sleep 1; ".($stop_wg0_first?"/bin/ubus call network.interface.wg0 down;":"")." \
 		/bin/ubus call network.interface.wan down; \
 		/bin/ubus call network.interface.wan6 down; \
 		/bin/ubus call network reload; \

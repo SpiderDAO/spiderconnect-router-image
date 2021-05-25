@@ -13,7 +13,7 @@ echo '
                 </h3>
 
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block mt-4 mb-2" id="seedPhrase">Seed Phrase</a>
+                    <a class="btn btn-primary btn-block mt-4 mb-2" id="seedPhrase" data-i18n="lng.seedphrase">Seed Phrase</a>
                 </div>
 
             </div>

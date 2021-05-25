@@ -4,11 +4,7 @@ echo '<!-- header header  -->
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <!-- Logo -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">
-                <!-- Logo icon -->
-                <!-- <b><img src="assets/images/logo-white.png" alt="homepage" class="dark-logo"/></b> -->
-                <!--End Logo icon -->
-                <!-- Logo text -->
+            <a class="navbar-brand" href="/index.php">
                 <span><img src="assets/images/logo-white.png" alt="homepage" class="dark-logo"/></span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -26,10 +22,6 @@ echo '<!-- header header  -->
                 <li class="nav-item m-l-10"><a class="nav-link sidebartoggle hidden-sm-down  "
                                                href="javascript:void(0)"><i class="ti-menu"></i></a></li>
                 <!-- Messages -->
-                <!-- <li class="nav-item dropdown mega-menu"><a class="nav-link dropdown-toggle  " href="#"
-                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false"><i class="m-r-5"></i> Menu</a>
-                 </li>-->
                 <!-- End Messages -->
             </ul>
             ';

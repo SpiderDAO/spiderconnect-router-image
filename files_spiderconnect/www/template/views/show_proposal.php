@@ -10,7 +10,7 @@ echo '
                 <h3 class="card-title">
                     <a id="choosePropBack"><i class="fa fa-arrow-left pull-right" aria-hidden="true"></i></a>
 
-                    <span>Choose a Proposal <br></span>
+                    <span data-i18n="lng.chooseaproposal">Choose a Proposal <br></span>
                 </h3>
 
                 <div id="allProp" class="col-md-12" style="max-height: 300px;overflow-y: scroll;">

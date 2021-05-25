@@ -15,16 +15,16 @@ echo '
 					<span class="balance"> '.(int)file_get_contents("/tmp/lastbalance").' SPDR</span>
                 </h3>
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block mt-5" id="sendAndReceiveBtn">Send & Receive</a>
+                    <a class="btn btn-primary btn-block mt-5" id="sendAndReceiveBtn" data-i18n="lng.sendnreceive">Send & Receive</a>
                 </div>
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block mt-2 mb-2" id="createPropBtn">Create a Proposal</a>
+                    <a class="btn btn-primary btn-block mt-2 mb-2" id="createPropBtn" data-i18n="lng.createproposal">Create Proposal</a>
                 </div>
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block my-2" id="get_props2">Proposals</a>
+                    <a class="btn btn-primary btn-block my-2" id="get_props2" data-i18n="lng.proposals">Proposals</a>
                 </div>
                 <div class="col-md-12">
-                    <button class="btn btn-primary btn-block mt-2 mb-5" id="get_refs">Referendums</button>
+                    <button class="btn btn-primary btn-block mt-2 mb-5" id="get_refs" data-i18n="lng.referendums">Referendums</button>
                 </div>
 
             </div>

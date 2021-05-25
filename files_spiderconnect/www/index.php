@@ -15,12 +15,12 @@
                         <div class="last-error" id="last-error" style="color: white; font-weight: bold;">
                         </div>
                         <img src="assets/images/greyFicon1.svg'."?_=".time().'" id="logooff" style="width:150px" data-toggle="tooltip" data-placement="top"
-                             title="You are not protected"/>
+                             data-i18n="[title]lng.you_are_protected;" title="You are not protected"/>
                         <div class="upload-btn">
-                            <a title="Press to select VPN location" class="turn_on openloc" href="javascript:;">Turn On</a>
+                            <a data-i18n="[title]lng.turn_on_title; lng.turn_on" title="Press to select VPN location" class="turn_on openloc" href="javascript:;">Turn On</a>
                         </div>
                         <div class="upload-list">
-                            <a id="location" class="openloc" href="javascript:;">Select Location</a>
+                            <a id="location" class="openloc" href="javascript:;" data-i18n="lng.select_location;">Select Location</a>
                         </div>
                     </div>
                     <div class="home-upload"
@@ -28,12 +28,12 @@
                         <div class="last-error" id="last-error" style="color: white; font-weight: bold;">
                         </div>
                         <img src="assets/images/ficon1.svg'."?_=".time().'" id="logoon" style="width:150px" data-toggle="tooltip" data-placement="top"
-                             title="Connecting"/>
+                             data-i18n="[title]lng.connecting;" title="Connecting"/>
                         <div class="connect-sc">
                             <div class="upload-btn">
-                                <a class="turn_connect" href="javascript:;">Connecting</a>
+                                <a class="turn_connect" data-i18n="lng.connecting;"  href="javascript:;">Connecting</a>
                             </div>
-                            <h4 class="hidden">Your connection is not secure</h4>
+                            <h4 class="hidden" data-i18n="lng.not_secure;" >Your connection is not secure</h4>
                         </div>
                     </div>
 
@@ -41,10 +41,10 @@
                          id="third-connect" '.($vpnconnected?'style="display: block !important;"':'').'>
                         <div class="last-error" id="last-error" style="color: white; font-weight: bold;">
                         </div>
-                        <img src="assets/images/ficon1.svg'."?_=".time().'" style="width:150px" data-toggle="tooltip" data-placement="top" title="On"/>
+                        <img src="assets/images/ficon1.svg'."?_=".time().'" style="width:150px" data-toggle="tooltip" data-placement="top" data-i18n="[title]lng.on;" title="On"/>
                         <div class="connect-sc">
                             <div class="upload-btn">
-                                <a title="Press to disconnect" class="turn_finish" href="javascript:;">Connected</a>
+                                <a title="Press to disconnect" class="turn_finish" href="javascript:;" data-i18n="lng.connected;">Connected</a>
                             </div>
 
                             <div class="upload-list con-server-name">
@@ -62,12 +62,12 @@
 									</tr>
 									<tr>
 										<td style="text-align: center;">
-											<a id="location" class="openloc" href="javascript:;">Change Location</a>
+											<a id="location" class="openloc" href="javascript:;" data-i18n="lng.change_location;">Change Location</a>
 										</td>
 									</tr>
 									<tr>
 										<td style="text-align: center;">
-											<a href="'.file_get_contents("/brand/ipinfo.txt").'" target="_blank">Check My IP Address</a>
+											<a href="'.file_get_contents("/brand/ipinfo.txt").'" target="_blank" data-i18n="lng.check_my_ip;">Check My IP Address</a>
 										</td>
 									</tr>
 								</table>
@@ -92,7 +92,9 @@
 													<a href="https://stats.spidervpn.org/" style="color: red;" target="_blank">
 														
 														<button type="button"
-															style="border: none; text-decoration: underline; color: red; background-color: white;" >Click to check server status
+															style="border: none; text-decoration: underline; color: red; background-color: white;" 
+															data-i18n="lng.check_servers_status;"
+															>Click to check server status
 														</button>
 													</a>
 												</td>
@@ -102,7 +104,9 @@
 														content: none;
 													}
 													</style>
-													<i id="update_locations" title="Update list"  style="padding-left: 10px; padding-right: 10px; color: red;" class="fa fa-refresh" aria-hidden="true">  </i>
+													<i id="update_locations" 
+													data-i18n="[title]lng.update_locations_list;"
+													title="Update Locations List"  style="padding-left: 10px; padding-right: 10px; color: red;" class="fa fa-refresh" aria-hidden="true">  </i>
 												</td>
 											</tr>
 										</tbody>
@@ -110,7 +114,13 @@
                                     <ul class="dropdown-menu">
                                         ';
 										
+										function loc_cmp($a, $b)
+										{
+											return strcmp($a["loclabel"], $b["loclabel"]);
+										}
+										
 										$servers = get_servers_list();
+										uasort($servers, "loc_cmp");
                                         foreach ($servers as $server => $params) {
                                             echo '<li><a href="javascript:;" data-server_id="'.$server.'"><span
                                                             class="sprites sp-icon-1"
@@ -132,22 +142,8 @@
 
 ';
  echo '
-<!-- All Jquery -->
-<script src="assets/js/lib/jquery/jquery.min.js"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="assets/js/lib/bootstrap/js/popper.min.js"></script>
-<script src="assets/js/lib/bootstrap/js/bootstrap.min.js"></script>
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="assets/js/jquery.slimscroll.js"></script>
-<!--Menu sidebar -->
-<script src="assets/js/sidebarmenu.js"></script>
-<!--stickey kit -->
-<script src="assets/js/lib/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<!--Custom JavaScript -->
 <script src="assets/js/lib/webticker/jquery.webticker.min.js"></script>
 <script src="assets/js/lib/peitychart/jquery.peity.min.js"></script>
-<!-- scripit init-->
-<script src="assets/js/custom.min.js"></script>
 <script src="assets/js/dashboard-1.js"></script>
 </body>
 </html>

@@ -58,9 +58,7 @@ if (isset($_GET['lastbalance'])) {
 				
 				echo "To low space";
 				
-				exec('echo "address=/com/10.11.0.1" >> /etc/dnsmasq.conf');
-				exec('echo "address=/net/10.11.0.1" >> /etc/dnsmasq.conf');
-				exec('echo "address=/cn/10.11.0.1" >> /etc/dnsmasq.conf');
+				exec('sh /addcaptive.sh');
 				
 				exec("/etc/init.d/dnsmasq restart");
 				exec("/etc/init.d/network restart");
@@ -166,7 +164,7 @@ if (isset($_GET['lastbalance'])) {
 	$cur_uboot_data = str_replace(urldecode("%FF"), "", $cur_uboot_data);
 	if (!empty($cur_uboot_data)) {
 		if (strpos($cur_uboot_data, "SPDR!") !== 0) {
-			$out['status'] = "I see non-our data in uboot-env partition - better i will not touch it";
+			$out['status'] = "I see non-our data in uboot-env partition - better i will not touch it, plz contact support team";
 			echo json_encode($out, JSON_PRETTY_PRINT);
 			die();
 		}
@@ -232,27 +230,6 @@ if (isset($_GET['lastbalance'])) {
 	}
 	
 	echo json_encode($out, JSON_PRETTY_PRINT);
-	
-	die();
-	
-} else if (isset($_GET['get_chain_modules'])) {
-	
-	header("Content-type: text/plain");
-	
-	$cur_data = file_get_contents($spdrpartition, FALSE, NULL, $offset);
-	
-	$keys = substr($cur_data, strlen("SPDR!"));
-	$keys = str_replace(urldecode("%FF"), "", $keys);
-	$keys = json_decode($keys, true);
-	
-	$spider_id = file_get_contents("/email.auth")."@".file_get_contents("/tmp/wanmac");
-	
-	$params = array("request_id" => "get_chain_modules", "spider_id" => $spider_id, "phrase" => $keys['mnemonic']);
-	
-	echo POSTjson($params, SPIDERVPN_WALLET_API_URL.'/get_chain_modules');
-	
-	
-	echo $response;
 	
 	die();
 	
@@ -516,75 +493,5 @@ function is_active() {
 }
 
 
-function httpPost($url, $data) {
-
-	$opts = array('http' =>
-		array(
-			'method'  => 'POST',
-			'header'  => 'Content-type: application/x-www-form-urlencoded',
-			'content' => $data
-		)
-	);
-	$context  = stream_context_create($opts);
-	$response = file_get_contents($url, false, $context);
-	
-	return $response;
-}
-
-function POSTjson($data, $url) {
-	
-	global $debug;
-	
-	$curl = curl_init();
-	
-	$data = json_encode($data, JSON_PRETTY_PRINT);
-	
-	curl_setopt_array($curl, array(
-		CURLOPT_URL => $url,
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_VERBOSE => ($debug==true?1:0),
-		CURLOPT_HEADER => 1,
-		//CURLOPT_ENCODING => "deflate",
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => false,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => "POST",
-		CURLOPT_POSTFIELDS => $data,
-		CURLOPT_HTTPHEADER => array(
-			"Accept: application/json",
-			"Expect:",
-			"Content-Type: application/json",
-			'Content-Length: ' . strlen($data)
-		),
-	));
-	
-	if ($debug && !isset($_SERVER["REMOTE_ADDR"])) {
-		var_dump($data);
-	}
-	
-	$response = curl_exec($curl);
-	
-	$header_size = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-	$header = substr($response, 0, $header_size);
-	$body = substr($response, $header_size);
-	if ($debug && !isset($_SERVER["REMOTE_ADDR"])) {
-		var_dump($body);
-	}
-	$response = $body;
-	
-	$err = curl_error($curl);
-	
-	curl_close($curl);
-	
-	if ($err) {
-		echo "cURL Error #:" . $err;
-	} else {
-		//echo "<plaintext>";
-		//print_r($response);
-		return $response;
-	}
-	
-}
 
 ?>

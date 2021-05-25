@@ -13,18 +13,18 @@ class openvpn
 
     public function change_server($server)
     {
-        ignore_user_abort(true);
+		ignore_user_abort(true);
+		
+		touch('/tmp/lic.locker');
 
-        touch('/tmp/lic.locker');
+		$wgprofile = get_location_keys($server);
 
-        $wgprofile = get_location_keys($server);
-
-        touch('/tmp/lic.locker');
-        chmod("/tmp/lic.locker", 0777);
-        $locker = fopen('/tmp/lic.locker', 'r+');
-
-        @unlink("/tmp/error.flag");
-
+		touch('/tmp/lic.locker');
+		chmod("/tmp/lic.locker", 0777);
+		$locker = fopen('/tmp/lic.locker', 'r+');
+		
+		@unlink("/tmp/error.flag");
+		
 		if (isset($wgprofile['message']))
 		{
 			
@@ -39,17 +39,17 @@ class openvpn
 			
 			$servers = (array)(new spidervpn)->servers();
 			$params  = $servers[$server];
+			
+			$WG_IF            = "wg0";
+			$WG_ADDR          = $wgprofile['Interface']['Address'];
+			$WG_KEY           = $wgprofile['Interface']['PrivateKey'];
+			$WG_PORT          = $wgprofile['Interface']['ListenPort'];
+			$WG_DNS           = $wgprofile['Interface']['dns'];
 
-            $WG_IF = "wg0";
-            $WG_ADDR = $wgprofile['Interface']['Address'];
-            $WG_KEY = $wgprofile['Interface']['PrivateKey'];
-            $WG_PORT = $wgprofile['Interface']['ListenPort'];
-            $WG_DNS = $wgprofile['Interface']['dns'];
-
-            $WG_PUB = $wgprofile['Peer']['PublicKey'];
-            $WG_PSK = $wgprofile['Peer']['PresharedKey'];
-            $WG_ALLOWED = $wgprofile['Peer']['AllowedIPs'];
-            $WG_ENDPOINT_HOST = explode(":", $wgprofile['Peer']['Endpoint'])[0];
+			$WG_PUB           = $wgprofile['Peer']['PublicKey'];
+			$WG_PSK           = $wgprofile['Peer']['PresharedKey'];
+			$WG_ALLOWED       = $wgprofile['Peer']['AllowedIPs'];
+			$WG_ENDPOINT_HOST =  explode(":", $wgprofile['Peer']['Endpoint'])[0];
 			$WG_ENDPOINT_PORT = @explode(":", $wgprofile['Peer']['Endpoint'])[1];
 			
 			//if ($_SERVER['SERVER_NAME'] !== "::1" && $_SERVER['SERVER_NAME'] !== "127.0.0.1") { //if kick from tunnel above php code will not be executed O_o
@@ -152,43 +152,47 @@ Step 3) Factory reset your router by clicking <a href='/factoryreset.php' style=
 		touch('/tmp/lic.locker');
 		chmod("/tmp/lic.locker", 0777);
 		$locker = fopen('/tmp/lic.locker', 'r+');
-        if (get_killswitch_status() == "block") {
-            $status = $this->cli->execute("uci set firewall.@zone[1].masq=0");
-        } else {
-            $status = $this->cli->execute("uci set firewall.@zone[1].masq=1");
-        }
-        $status = $this->cli->execute("uci commit firewall");
+		if (get_killswitch_status() == "block") {
+			$status = $this->cli->execute("uci set firewall.@zone[1].masq=0");
+		} else {
+			$status = $this->cli->execute("uci set firewall.@zone[1].masq=1");
+		}
+		$status = $this->cli->execute("uci commit firewall");
 		$status = $this->cli->execute("(sleep 3; /etc/init.d/firewall restart) >/dev/null 2>&1 &");
-
-        exec("uci set network.wgclient.name=\"\"");
-        exec("uci commit network");
-
-        set_dns_servers(true);
-
-        $this->disable();
-        $this->stop();
-
+		
+		exec("uci set network.wgclient.name=\"\"");
+		exec("uci commit network");
+		
+		set_dns_servers(true);
+		
+		$this->disable();
+		$this->stop();
+		
 		@flock($locker, LOCK_UN);
 		
-        return 1;
+		return 1;
     }
+
 
     public function is_active()
     {
-        $cli = new cli();
+        $cli = new cli;
 
         $status = json_decode($cli->execute('ifstatus wg0'));
-        $routes = $cli->execute('ip route | grep default');
+		$routes = $cli->execute('ip route | grep default');
+		
+        return ($status->up == false || strpos($routes, "wg0") === false) ? 0 : 1;
 
-        return $status->up == false || strpos($routes, "wg0") === false ? 0 : 1;
+
     }
 
     public function get_status()
     {
-        $timeout = 15;
-
+		
+		$timeout = 15;
+		
         $seconds = 0;
-        $cli = new cli();
+        $cli = new cli;
         do {
             sleep(1);
             $seconds++;
@@ -196,10 +200,10 @@ Step 3) Factory reset your router by clicking <a href='/factoryreset.php' style=
 		|| strpos($cli->execute('ip route | grep default'), "wg0") === false)
 		&& $seconds < $timeout);
 		
-        if ($seconds >= $timeout) {
-            $this->restart();
-        }
-
+		if ($seconds >= $timeout) {
+			$this->restart();
+		}
+		
         return $seconds;
     }
 
@@ -234,4 +238,6 @@ Step 3) Factory reset your router by clicking <a href='/factoryreset.php' style=
     {
         $this->cli->execute($command);
     }
+
+
 }

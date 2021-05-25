@@ -17,13 +17,13 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div id="goback"><a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </div>
                         <div class="remote-form">
                             <div class="remote-head remote-head-1">
-                                '.(file_exists("/tmp/lowspace")?"<h3>Low Memory! Please free up some space.</h3><h4>Please use a MicroSD card or a USB stick to extend memory.</h4>":"<h3>Router Memory</h3>").'
-                                <h4 id="status">Detecting status...</h4>
+                                '.(file_exists("/tmp/lowspace")?"<h3 data-i18n='lng.low_memory1'>Low Flash Memory! Please free up some space.</h3><h4 data-i18n='lng.low_memory2'>Please use a MicroSD card or a USB stick to extend memory.</h4>":"<h3 data-i18n='lng.routermemory'>Router Memory</h3>").'
+                                <h4 id="status" data-i18n="lng.checkingstatus">Detecting status...</h4>
                             </div>
                         </div>
                     </div>
@@ -69,45 +69,45 @@ echo '
 						formatting=1;
 					}
 					var dots = new Array(formatting + 1).join( "." );
-					$("#status").html("Formatting"+dots);
+					$("#status").html(i18next.t("lng.formatting")+dots);
 					
 					return;
 				}
 				
 				var status = "";
 				if (e.boot == "internal") {
-					status = "Internal Flash Memory<br/>"+formatSizeUnits(e.space+e.rom, 2)+" used, "+formatSizeUnits(e.freespace, 2)+" free";
+					status = i18next.t("lng.internalmemory")+"<br/>"+formatSizeUnits(e.space+e.rom, 2)+" "+i18next.t("lng.used")+", "+formatSizeUnits(e.freespace, 2)+" "+i18next.t("lng.free");
 					if (!e.mmc && !e.sda) {
-						status = status + "<br/><br/>External USB Flash Memory - 0MB Free<br/><br/>Insert USB to Access External Memory"
+						status = status + i18next.t("lng.externalmemory0")
 					}
 				} else if (e.boot == "mmc") {
-					status = "Router booted from MicroSD,<br/> and have "+formatSizeUnits(e.freespace, 2)+" free space<br/><br/>";
+					status = i18next.t("lng.mmc")+formatSizeUnits(e.freespace, 2)+i18next.t("lng.freespace");
 				} else if (e.boot == "usb") {
-					status = "Router booted from USB Pendrive,<br/> and have "+formatSizeUnits(e.freespace, 2)+" free space<br/><br/>";
+					status = i18next.t("lng.usb")+formatSizeUnits(e.freespace, 2)+i18next.t("lng.freespace");
 				} else {
-					status = "Router is in non-expected status.<br/> Please reboot<br/><br/>";
+					status = i18next.t("lng.nonexpectedstatus");
 				}
 				
 				var text1 = "";
 				
 				if (e.mmc) {
-					text1 = "MicroSD card inserted<br/>";
-					text1 = text1 + " - size "+formatSizeUnits(e.mmc.sectors*e.mmc.sectorsize, 2)+"<br/>";
+					text1 = i18next.t("lng.mmc1");
+					text1 = text1 + " - " + i18next.t("lng.size") + formatSizeUnits(e.mmc.sectors*e.mmc.sectorsize, 2)+"<br/>";
 					if (e.mmc.type != 2) {
-						text1 = text1 + " - not formatted for spider<br/>";
+						text1 = text1 + " - " + i18next.t("lng.notformattedfor") + " " + i18next.t("lng.shortbrand") + "<br/>";
 						text1 = text1 + "<div style=\'text-align: center;\'>";
-						text1 = text1 + "<button id=\'formatMMC\' class=\'btn btn-default\' style=\'background-color: red; color: white;\'>Format MicroSD</button>";
+						text1 = text1 + "<button id=\'formatMMC\' class=\'btn btn-default\' style=\'background-color: red; color: white;\'>" + i18next.t("lng.format") + " " + i18next.t("lng.mmc0") + "</button>";
 						text1 = text1 + "</div>";
 					} else {
 						if (e.boot == "mmc") {
-							text1 = text1 + " - formatted for spider - active<br/>";
+							text1 = text1 + " - " + i18next.t("lng.formattedfor") + " " + i18next.t("lng.shortbrand") + " - " + i18next.t("lng.active") + "<br/>";
 							text1 = text1 + "<div style=\'text-align: center;\'>";
-							text1 = text1 + "<button id=\'removeMMC\' class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>Safe Remove</button>";
+							text1 = text1 + "<button id=\'removeMMC\' class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>" + i18next.t("lng.saferemove") + "</button>";
 							text1 = text1 + "</div>";
 						} else {
-							text1 = text1 + " - formatted for spider - reboot to activate<br/>";
+							text1 = text1 + " - " + i18next.t("lng.formattedfor") + " " + i18next.t("lng.shortbrand") + " - " + i18next.t("lng.reboottoactivate") + "<br/>";
 							text1 = text1 + "<div style=\'text-align: center;\'>";
-							text1 = text1 + "<button id=\'rebootMMC\'      class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>Reboot router</button>";
+							text1 = text1 + "<button id=\'rebootMMC\'      class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>" + i18next.t("lng.rebootrouter") + "</button>";
 							text1 = text1 + "</div>";
 						}
 					}
@@ -117,23 +117,23 @@ echo '
 				var text2 = "";
 				
 				if (e.sda) {
-					text2 = "USB flash drive inserted<br/>";
-					text2 = text2 +" - size "+formatSizeUnits(e.sda.sectors*e.sda.sectorsize, 2)+"<br/>";
+					text2 = i18next.t("lng.usb1");
+					text2 = text2 + " - " + i18next.t("lng.size") + formatSizeUnits(e.sda.sectors*e.sda.sectorsize, 2)+"<br/>";
 					if (e.sda.type != 2) {
-						text2 = text2 +" - not formatted for spider<br/>";
+						text2 = text2 +" - " + i18next.t("lng.notformattedfor") + " " + i18next.t("lng.shortbrand") + "<br/>";
 						text2 = text2 + "<div style=\'text-align: center;\'>";
-						text2 = text2 + "<button id=\'formatUSB\' class=\'btn btn-default\' style=\'background-color: red; color: white;\'>Format Pendrive</button>";
+						text2 = text2 + "<button id=\'formatUSB\' class=\'btn btn-default\' style=\'background-color: red; color: white;\'>" + i18next.t("lng.format") + " " + i18next.t("lng.usb0") + "</button>";
 						text2 = text2 + "</div>";
 					} else {
 						if (e.boot == "usb") {
-							text2 = text2 + " - formatted for spider - active<br/>";
+							text2 = text2 + " - " + i18next.t("lng.formattedfor") + " " + i18next.t("lng.shortbrand") + " - " + i18next.t("lng.active") + "<br/>";
 							text2 = text2 + "<div style=\'text-align: center;\'>";
-							text2 = text2 + "<button id=\'removeUSB\' class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>Safe Remove</button>";
+							text2 = text2 + "<button id=\'removeUSB\' class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>" + i18next.t("lng.saferemove") + "</button>";
 							text2 = text2 + "</div>";
 						} else {
-							text2 = text2 + " - formatted for spider - reboot to activate<br/><br/>";
+							text2 = text2 + " - " + i18next.t("lng.formattedfor") + " " + i18next.t("lng.shortbrand") + " - " + i18next.t("lng.reboottoactivate") + "<br/><br/>";
 							text2 = text2 + "<div style=\'text-align: center;\'>";
-							text2 = text2 + "<button id=\'rebootUSB\'   class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>Reboot router</button>";
+							text2 = text2 + "<button id=\'rebootUSB\'   class=\'btn btn-default\' style=\'background-color: #007771; color: white;\'>" + i18next.t("lng.rebootrouter") + "</button>";
 							text2 = text2 + "</div>";
 						}
 					}
@@ -152,11 +152,11 @@ echo '
 				$("#status").html(status+alltext);
 				
 			} catch (e) {
-				$("#status").html("Router is not accessible now.");
+				$("#status").html(i18next.t("lng.routerisnotaccessible"));
 			};
 		}).fail(function () {
 			
-			$("#status").html("Router is not accessible now.");
+			$("#status").html(i18next.t("lng.routerisnotaccessible"));
 			
 		}).always(function () {
 			
@@ -179,7 +179,7 @@ echo '
 				window.location.href = "/connection-rebooted.php?back=extroot.php";
 				
 			} else if (e.target && e.target.id== "removeUSB"){
-				var r = confirm("Router will off now and you will can safety remove USB Pendrive. Remove and insert back router\"s power cable to start router again. Continue?");
+				var r = confirm(i18next.t("lng.routerwilloffnowmmc"));
 				if (r == true) {
 					$.ajax({
 						url: "/config_api.php?halt=1",
@@ -192,7 +192,7 @@ echo '
 				}
 				
 			} else if (e.target && e.target.id== "removeMMC"){
-				var r = confirm("Router will off now and you will can safety remove  MicroSD. Remove and insert back router\"s power cable to start router again. Continue?");
+				var r = confirm(i18next.t("lng.routerwilloffnowusb"));
 				if (r == true) {
 					$.ajax({
 						url: "/config_api.php?halt=1",
@@ -205,7 +205,7 @@ echo '
 				}
 				
 			} else if (e.target && e.target.id== "formatMMC"){
-				var r = confirm("Are you sure you want to format inserted MicroSD? All data will be lost!");
+				var r = confirm(i18next.t("lng.confirmformatmmc"));
 				if (r == true) {
 					formatting = 1;
 					$.ajax({
@@ -219,7 +219,7 @@ echo '
 				}
 				
 			} else if (e.target && e.target.id== "formatUSB"){
-				var r = confirm("Are you sure you want to format inserted USB Pendrive? All data will be lost!");
+				var r = confirm(i18next.t("lng.confirmformatusb"));
 				if (r == true) {
 					formatting = 1;
 					$.ajax({

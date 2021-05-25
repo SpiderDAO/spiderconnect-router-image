@@ -16,15 +16,15 @@ if (!file_exists("/tmp/address") || empty(file_get_contents("/tmp/address"))) {
         <div id="walletDiv" class="card text-center">
             <div class="card-body">
                 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block mt-4 mb-2" id="createWallet">Create Wallet</a>
+                    <a class="btn btn-primary btn-block mt-4 mb-2" id="createWallet" data-i18n="lng.createwallet">Create Wallet</a>
                 </div>
                  <!-- 
 				 <div class="col-md-12">
-                    <a class="btn btn-primary btn-block my-4" id="importWalletBtn">Import Wallet</a>
+                    <a class="btn btn-primary btn-block my-4" id="importWalletBtn" data-i18n="lng.importwallet">Import Wallet</a>
                 </div>
 				-->
               <!--   <div class="col-md-12">
-                    <a class="btn btn-primary btn-block my-4" id="showProposalDemo">Proposal</a>
+                    <a class="btn btn-primary btn-block my-4" id="showProposalDemo" data-i18n="lng.proposal">Proposal</a>
                 </div> -->
             </div>
         </div>

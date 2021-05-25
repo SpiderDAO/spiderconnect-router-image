@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$cli->execute("uci set network.wan.service='".$_POST['service']."'");
 	}
 	
-    $cli->execute("uci commit network");
-    exec("(killall ssh; sleep 1; \
+	$cli->execute("uci commit network");
+	exec("(killall ssh; sleep 1; \
 		ubus call network.interface.wan down; \
 		ubus call network.interface.wan6 down; \
 		ubus call network reload; \

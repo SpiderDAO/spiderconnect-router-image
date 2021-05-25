@@ -2,72 +2,76 @@
 
 require_once('init.php');
 
-foreach (array(0, 1) as $iterator) {
-	if (isset($_GET['scan_ssid'.$iterator])) {
-		
-		header("Content-type: text/plain");
-		
-		if (!file_exists("/tmp/scanssid".$iterator.".txt") && !file_exists("/tmp/tmp_ssid".$iterator.".txt")) {
-			$result = shell_exec("iwinfo wlan".$iterator." scan");
-		} else if (!file_exists("/tmp/scanssid".$iterator.".txt")) {
-			//waiting for first scan results
-		} else {
-			//we got first scan results
-			$result = file_get_contents("/tmp/scanssid".$iterator.".txt");
-			@unlink("/tmp/scanssid".$iterator.".txt");
-		}
-		
-		$ssids = array();
-		
-		$result = explode(PHP_EOL.PHP_EOL, $result);
-		
-		$ssids['status'] = "No wireless WAN is connected";
-		
-		if (file_exists("/sys/class/net/wlan0-1/address") || file_exists("/sys/class/net/wlan1-1/address")) {
-			//wireless WAN exists
-			$route = shell_exec("ip route get 1.1.1.1");
-			if (strpos($route, " wlan1 ") !== false || strpos($route, " wlan0 ") !== false) {
-				$ssids['status'] = "Wireless WAN is connected";
+if (strpos($_SERVER['REQUEST_URI'], "scan_ssid") !== false) {
+	$ssids = array();
+	foreach (array(0, 1) as $iterator) {
+		if (isset($_GET['scan_ssid'.$iterator])) {
+			
+			header("Content-type: text/plain");
+			
+			if (!file_exists("/tmp/scanssid".$iterator.".txt") && !file_exists("/tmp/tmp_ssid".$iterator.".txt")) {
+				$result = shell_exec("iwinfo wlan".$iterator." scan");
+			} else if (!file_exists("/tmp/scanssid".$iterator.".txt")) {
+				//waiting for first scan results
 			} else {
-				$ssids['status'] = "Wireless WAN is not connected";
+				//we got first scan results
+				$result = file_get_contents("/tmp/scanssid".$iterator.".txt");
+				@unlink("/tmp/scanssid".$iterator.".txt");
 			}
-			$ssids['status'] .= " <i id='disconnect' style='color: black; cursor: pointer;' onclick='disconnect()' class='fa fa-close'></i>";
-		}
-		
-		foreach($result as $line) {
-			if (!empty($line)) {
-				
-				$line = explode(PHP_EOL, $line);
-				
-				$bssid = explode("Address: ", $line[0])[1];
-				$bssid = explode(PHP_EOL, $bssid)[0];
-				$ssids['scan'][$bssid]["bssid"] = $bssid;
-				
-				
-				$ssid = explode("ESSID: ", $line[1])[1];
-				$ssid = trim($ssid, "\"");
-				$ssids['scan'][$bssid]["ssid"] = $ssid;
-				
-				$channel = explode("Channel: ", $line[2])[1];
-				$ssids['scan'][$bssid]["channel"] = $channel;
-				
-				$signal = explode("Signal: ", $line[3])[1];
-				$signal = explode(" ", $signal)[0];
-				$ssids['scan'][$bssid]["signal"] = $signal;
-				
-				$quality = explode("Quality: ", $line[3])[1];
-				$ssids['scan'][$bssid]["quality"] = $quality;
-				
-				$encryption = explode("Encryption: ", $line[4])[1];
-				$ssids['scan'][$bssid]["encryption"] = $encryption;
+			
+			
+			
+			$result = explode(PHP_EOL.PHP_EOL, $result);
+			$ssids['disconnect'] = "";
+			//$ssids['status'] = "No wireless WAN is connected";
+			$ssids['status'] = "nowwan";
+			
+			if (file_exists("/sys/class/net/wlan0-1/address") || file_exists("/sys/class/net/wlan1-1/address")) {
+				//wireless WAN exists
+				$route = shell_exec("ip route get 1.1.1.1");
+				if (strpos($route, " wlan1 ") !== false || strpos($route, " wlan0 ") !== false) {
+					//$ssids['status'] = "Wireless WAN is connected";
+					$ssids['status'] = "wwanok";
+				} else {
+					//$ssids['status'] = "Wireless WAN is not connected";
+					$ssids['status'] = "wwannotok";
+				}
+				$ssids['disconnect'] = " <i id='disconnect' style='color: black; cursor: pointer;' onclick='disconnect()' class='fa fa-close'></i>";
 			}
+			
+			foreach($result as $line) {
+				if (!empty($line)) {
+					
+					$line = explode(PHP_EOL, $line);
+					
+					$bssid = explode("Address: ", $line[0])[1];
+					$bssid = explode(PHP_EOL, $bssid)[0];
+					$ssids['scan'][$bssid]["bssid"] = $bssid;
+					
+					
+					$ssid = explode("ESSID: ", $line[1])[1];
+					$ssid = trim($ssid, "\"");
+					$ssids['scan'][$bssid]["ssid"] = $ssid;
+					
+					$channel = explode("Channel: ", $line[2])[1];
+					$ssids['scan'][$bssid]["channel"] = $channel;
+					
+					$signal = explode("Signal: ", $line[3])[1];
+					$signal = explode(" ", $signal)[0];
+					$ssids['scan'][$bssid]["signal"] = $signal;
+					
+					$quality = explode("Quality: ", $line[3])[1];
+					$ssids['scan'][$bssid]["quality"] = $quality;
+					
+					$encryption = explode("Encryption: ", $line[4])[1];
+					$ssids['scan'][$bssid]["encryption"] = $encryption;
+				}
+			}
+			
 		}
-		
-		echo json_encode($ssids, JSON_PRETTY_PRINT);
-		
-		die();
 		
 	}
+	echo json_encode($ssids, JSON_PRETTY_PRINT);
 }
 
 
@@ -207,7 +211,7 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div id="goback"><a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </div>
                         <div class="remote-form">
@@ -216,38 +220,42 @@ echo '
 if (isset($_GET['success'])) { 
 echo '
                                 <div class="remote-head remote-head-1">
-                                    <h4>Parameters have been successfully updated.</h4>
+                                    <h4 data-i18n="lng.paramsupdated">Parameters have been successfully updated.</h4>
                                 </div>
                             ';
 } else {
 echo '
 								<div class="remote-head remote-head-1">
-									<h3>Setup Cable WAN Connection</h3>
+									<h3 data-i18n="lng.setupcablewan">Setup Cable WAN Connection</h3>
 									<div class="remote-form-inn">
 									<form id="wanip" class="" action="/api/wanparams.php" method="post">
 										<div class="form-group" id="wan-connection">
 											<select class="form-control placeholder-wh" name="wan-connection">
 												<option value="dhcp"   '.($wanconnection ==   "dhcp"?"selected":"").' >DHCP</option>
-												<option value="static" '.($wanconnection == "static"?"selected":"").' >Static IP</option>
+												<option value="static" '.($wanconnection == "static"?"selected":"").' data-i18n="lng.staticip">Static IP</option>
 												<option value="pppoe"  '.($wanconnection ==  "pppoe"?"selected":"").' >PPPoE</option>
 											</select>
 										</div>
 										<div id="static-params">
 											<div class="form-group">
 												<input type="text" class="form-control" name="static-ip"
-													   placeholder="IPv4 address - 192.168.1.2" value="'.trim(exec("uci get network.wan.ipaddr")).'">
+													data-i18n="[placeholder]lng.ipv4placeholder"
+													placeholder="IPv4 address - 192.168.1.2" value="'.trim(exec("uci get network.wan.ipaddr")).'">
 											</div>
 											<div class="form-group">
 												<input type="text" class="form-control" name="netmask"
-													   placeholder="IPv4 netmask - 255.255.255.0" value="'.trim(exec("uci get network.wan.netmask")).'">
+													data-i18n="[placeholder]lng.netmaskplaceholder"
+													placeholder="IPv4 netmask - 255.255.255.0" value="'.trim(exec("uci get network.wan.netmask")).'">
 											</div>
 											<div class="form-group">
 												<input type="text" class="form-control" name="gateway"
-													   placeholder="IPv4 gateway - 192.168.1.1" value="'.trim(exec("uci get network.wan.gateway")).'">
+													data-i18n="[placeholder]lng.gatewayplaceholder"
+													placeholder="IPv4 gateway - 192.168.1.1" value="'.trim(exec("uci get network.wan.gateway")).'">
 											</div>
 											<div class="form-group">
 												<input type="text" class="form-control" name="dns"
-													   placeholder="DNS server - 8.8.8.8" value="'.trim(exec("uci get network.wan.dns")).'">
+													data-i18n="[placeholder]lng.dnsplaceholder"
+													placeholder="DNS server - 8.8.8.8" value="'.trim(exec("uci get network.wan.dns")).'">
 											</div>
 										</div>
 										<div id="pppoe-params">
@@ -266,8 +274,8 @@ echo '
 											
 										</div>
 									</form>
-									<h3>Setup Wireless WAN Connection</h3>
-									<h4 id="status">Detecting status...</h4>
+									<h3 data-i18n="lng.setupwifiwan">Setup Wireless WAN Connection</h3>
+									<h4 id="status" data-i18n="lng.detectingstatus">Detecting status...</h4>
 									<nav>
 										<ul id="ssids">
 											<li class="fakessid">...<li>
@@ -277,7 +285,7 @@ echo '
 										</ul>
 									</nav>
 									<div class="form-group">
-										<button id="submit" type="submit" class="btn btn-default">Save Changes</button>
+										<button id="submit" type="submit" class="btn btn-default" data-i18n="lng.savechanges">Save Changes</button>
 									</div>
 
 										';
@@ -343,7 +351,7 @@ echo '
 														id = id.replace(/:/g, "");
 														
 														if ($("#"+id).length == 0 && id != 1 && id != 0) {  
-															$("#ssids").append(\'<li id="\'+id+\'"><span>\'+val.ssid+\' <i class="fa fa-question-circle" title="\'+(band==\'.$GHZ2.\'?"2.4GHz":"5GHz")+\', \'+val.bssid+\', Encryption \'+val.encryption+\', Channel \'+val.channel+\', Signal \'+val.signal+\' dBm, Quality \'+val.quality+\'"></i></span> <button class="btn-join" onclick="connectwwan(\\\'\'+val.ssid+\'\\\', \'+(band==\'.$GHZ2.\'?"2":"5")+\', \\\'\'+val.encryption+\'\\\', \'+val.channel+\')" style="color: black;">Join network</button></li>\');
+															$("#ssids").append(\'<li id="\'+id+\'"><span>\'+val.ssid+\' <i class="fa fa-question-circle" title="\'+(band==\'.$GHZ2.\'?"2.4GHz":"5GHz")+\', \'+val.bssid+\', Encryption \'+val.encryption+\', Channel \'+val.channel+\', Signal \'+val.signal+\' dBm, Quality \'+val.quality+\'"></i></span> <button class="btn-join" onclick="connectwwan(\\\'\'+val.ssid+\'\\\', \'+(band==\'.$GHZ2.\'?"2":"5")+\', \\\'\'+val.encryption+\'\\\', \'+val.channel+\')" style="color: black;" data-i18n="lng.joinnetwork">Join network</button></li>\');
 														}
 														
 													});
@@ -354,17 +362,18 @@ echo '
 													var ssidcount = document.querySelectorAll("#ssids li").length
 													
 													if ($("#status").html() != e.status) {
-														$("#status").html(e.status+ "<br/>" + ssidcount + " SSIDs detected");
+														e.status = i18next.t("lng." + e.status);
+														$("#status").html(e.status + e.disconnect + "<br/>" + ssidcount + " " + i18next.t("lng.ssidsdetected"));
 													}
 													
 												} catch (e) {
 												
-													$("#status").html("Router is not accessible now.");
+													$("#status").html(i18next.t("lng.routerisnotaccessible"));
 												
 												};
 											}).fail(function () {
 												
-												$("#status").html("Router is not accessible now.");
+												$("#status").html(i18next.t("lng.routerisnotaccessible"));
 												
 											}).always(function () {
 												
@@ -381,7 +390,7 @@ echo '
 										}
 										
 										function disconnect() {
-											if (confirm("Disconnect Wireless WAN?")) {
+											if (confirm(i18next.t("lng.confirmdisconnectwifiwan"))) {
 												$.get( "/wan-setup.php?disconnectwwan=1", function( data ) {
 													alert("Done");
 												});
@@ -392,7 +401,7 @@ echo '
 											
 											var password = "";
 											if (encryption != "none") {
-												password = prompt("Please enter SSID password", "");
+												password = prompt(i18next.t("lng.enterssidpassword"), "");
 											}
 											
 											if (password == null) {
@@ -400,12 +409,12 @@ echo '
 											}
 											
 											if (password.length < 8 || password.length > 63) {
-												alert("SSID password length must be between 8 to 63 simbols");
+												alert(i18next.t("lng.ssidpasswordlength"));
 												return;
 											}
 											
 											$.get( "/wan-setup.php?connectwwan=1&ssid="+encodeURI(ssid)+"&band="+band+"&encryption="+encodeURI(encryption)+"&channel="+channel+"&password="+encodeURI(password), function( data ) {
-												alert("Done");
+												alert("OK");
 											});
 											
 										}

@@ -17,7 +17,7 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div id="goback"><a href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                         </div>
                         <div class="remote-form">
@@ -26,22 +26,22 @@ echo '
 if (isset($_GET['success'])) { 
 echo '
                                 <div class="remote-head remote-head-1">
-                                    <h4>Parameters have been successfully updated.</h4>
+                                    <h4 data-i18n="lng.paramsupdated">Parameters have been successfully updated.</h4>
                                 </div>
                             ';
 } else {
 echo '
                             <div class="remote-head remote-head-1">
-                                <h3>Update your VPN<br>DNS Unblocker mode</h3>
-                                <h4>DNS Unblocker feature</h4>
+                                <h3 data-i18n="lng.dns_unblocker2">Update your VPN DNS Unblocker mode</h3>
+                                <h4 data-i18n="lng.dns_unblocker3">DNS Unblocker feature</h4>
                             </div>
                             <div class="remote-form-inn">
                                 <form class="" action="/api/paramsdns.php" method="post">
                                     <div class="form-group">
                                         <select class="form-control placeholder-wh" onchange="dnsToggle()" name="dnsunblocker" id="dnsunblocker">
-											<option value="wireguard" >On</option>
-											<option value="fromdhcp" '.(get_dnsunblocker_status() == "fromdhcp"?"selected":"").'>Off</option>
-											<option value="custom" '.(get_dnsunblocker_status() == "custom"?"selected":"").'>Custom DNS Servers</option>
+											<option value="wireguard" data-i18n="lng.on">On</option>
+											<option value="fromdhcp"  data-i18n="lng.off" '.(get_dnsunblocker_status() == "fromdhcp"?"selected":"").'>Off</option>
+											<option value="custom"  data-i18n="lng.customdnsservers" '.(get_dnsunblocker_status() == "custom"?"selected":"").'>Custom DNS Servers</option>
 										</select>
 									</div>
 									<div class="form-group" id="customdns" style="'.(get_dnsunblocker_status() != "custom"?"display: none;":"").'">
@@ -69,7 +69,7 @@ echo '
 									</script>
 									
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-default">Save Changes</button>
+                                        <button type="submit" class="btn btn-default" data-i18n="lng.savechanges">Save Changes</button>
                                     </div>
 
                                     ';

@@ -552,10 +552,10 @@ div#goback a {
     display: table;
     color: white;
     background: #016c66;
-	border-width: medium;
+	/*border-width: medium;*/
     font-weight: 600;
     border-radius: 30px;
-    padding: 10px 40px;
+    /*padding: 10px 40px;*/
     margin-top: 2rem;
 }
 .remote-form-inn  .form-group:last-child {

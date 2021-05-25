@@ -10,11 +10,11 @@ echo '
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
 
                         <div class="remote-form">
                             <div class="remote-head-1">
-                                <span style="color: black;">Updating VPN Router...</span>
+                                <span style="color: black;" data-i18n="lng.updating">Updating VPN Router...</span>
                             </div>
 
                         </div>

@@ -5,7 +5,7 @@ require_once('layout/content.php');
 echo '
 <div class="overlay"></div>
 <div class="spanner show">
-    <h2 style="position: relative;top: 35%;left: 0">Please wait while your request is processing</h2>
+    <h2 style="position: relative;top: 35%;left: 0" data-i18n="lng.plzwait">Please wait while your request is processing</h2>
 
     <div class="loader">
 
@@ -42,7 +42,6 @@ echo '
     		$("#walletDiv").show()
 
     	}
-        // var phraseText = "tribe pond decorate tribe blur cat wall rare boss strategy wheat fan"
         $("#createWalletDiv").on("click", "#copyClipboard", function () {
             var $temp = $("<input>");
             $("body").append($temp);
@@ -165,20 +164,20 @@ echo '
                 console.log(data)
                 hideOverlay()
 				if (data == "No Referendums Available") {
-					$(\'#allRef\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + "No Referendums Available" + \'</div>\</div>\');
+					$(\'#allRef\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + i18next.t("lng.noreferendumsavailable") + \'</div>\</div>\');
 				} else {
 					$.each(data, function (index, value) {
 					if(value.status=="ended"){
 						$(\'#allRef\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + value.ref_msg + \'</div>\' +
 							\'<input id="refIndex" type="hidden" value=\' + value.ref_idx + \'>\' +
-							\'<button class="btn btn-inside-card w-100">Finished</button></div>\');
+							\'<button class="btn btn-inside-card w-100" data-i18n="lng.finished">Finished</button></div>\');
 							}
 							else{
 							$(\'#allRef\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + value.ref_msg + \'</div>\' +
 							\'<input id="refIndex" type="hidden" value=\' + value.ref_idx + \'>\' +
-							\'<button id="voteRef" class="btn btn-inside-card w-50">Vote Yes</button>\' +
+							\'<button id="voteRef" class="btn btn-inside-card w-50" data-i18n="lng.voteyes">Vote Yes</button>\' +
 							\'<input id="refIndexNo" type="hidden" value=\' + value.ref_idx + \'>\' +
-							\'<button id="voteRefNo" class="btn btn-inside-card w-50">Vote No</button></div>\');
+							\'<button id="voteRefNo" class="btn btn-inside-card w-50" data-i18n="lng.voteno">Vote No</button></div>\');
 							}
 					});
 				}
@@ -191,7 +190,7 @@ echo '
             }).fail(function (response) {
                 console.log(response)
                 processing = 0;
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
         $("#get_props2").click(function () {
@@ -211,10 +210,10 @@ echo '
             }).done(function (data) {
                 hideOverlay()
 				if (data == "No Proposals Available") {
-					$(\'#allProp\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + "No Proposals Available" + \'</div></div>\');
+					$(\'#allProp\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + i18next.t("lng.noproposalsavailable") + \'</div></div>\');
 				} else {
 					$.each(data, function (index, value) {
-						$(\'#allProp\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + value.prop_msg + \'</div><input id="propIndex" type="hidden" value=\' + value.prop_idx + \'><button class="btn btn-block btn-inside-card" id="second">Second</button></div>\');
+						$(\'#allProp\').append(\'<div class="inside-card mb-3"><div class="ref-msg">\' + value.prop_msg + \'</div><input id="propIndex" type="hidden" value=\' + value.prop_idx + \'><button class="btn btn-block btn-inside-card" id="second" data-i18n="lng.second">Second</button></div>\');
 
 					});
 				}
@@ -227,7 +226,7 @@ echo '
             }).fail(function (response) {
                 console.log(response)
                 processing = 0;
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
         $("#createPropBtn").click(function () {
@@ -269,7 +268,7 @@ echo '
                 });
             }).fail(function () {
 
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
 
@@ -284,7 +283,7 @@ echo '
             $.each(moduleFunctionArg, function (index, value) {
                 $(\'#createPropForm\').append(\'<div class="form-group col-md-12 funArg"> <input type="text" class="form-control funArgInput " value="" name=\' + value.name + \' placeholder=\' + value.name + \' id=\' + value.name + \'></div>\');
             });
-            $(\'#createPropForm\').append(\'<div class="form-group col-md-12 funArg"><input id="submitProp" type="submit" class="btn btn-primary btn-block" value="Propose"></div>\');
+            $(\'#createPropForm\').append(\'<div class="form-group col-md-12 funArg"><input id="submitProp" type="submit" class="btn btn-primary btn-block" data-i18n="[value]lng.propose" value="Propose"></div>\');
 
         });
         $("#createPropFormSelect").change(function () {
@@ -343,7 +342,7 @@ echo '
                 }
                 $("#createProposal").hide()
                 hideOverlay()
-                $("div#PropConfirmMessage").html("<h3>Storage fee is "+ data.storageFee +" SPDR</h3>")
+                $("div#PropConfirmMessage").html("<h3>" + i18next.t("lng.storagefee") + " "+ data.storageFee +" SPDR</h3>")
                 $("#confirmDiv").show();
                 preimage_hash = data.preimage_hash
 
@@ -419,7 +418,7 @@ echo '
                         $("#update_balance").click();
                     }).fail(function () {
                         processing = 0;
-                        alert("Error, please try later.");
+                        alert(i18next.t("lng.something_wrong"));
                     });
                 } else {
                     //updated();
@@ -479,14 +478,14 @@ echo '
                     } else {
 
                         if (e.target.id == "create_wallet3") {
-                            alert("Done, please reload this page now");
+                            alert(i18next.t("lng.plzreloadpage"));
                         }
 
                         $("#reload_page2").fadeIn();
                         $("#create_wallet2").hide();
                     }
                 }).fail(function () {
-                    alert("Can\'t save keys in router\'s flash memory.");
+                    alert(i18next.t("lng.cantsavedata"));
                     processing = 0;
                 });
                  $.ajax({
@@ -496,11 +495,11 @@ echo '
             }).done(function (data, textStatus, jqXHR) {
                 //alert("save_keys feedback - "+data);
             }).fail(function () {
-                alert("Can\'t save keys in router\'s flash memory.");
+                alert(i18next.t("lng.cantsavedata"));
                 processing = 0;
             });
             }).fail(function () {
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
                 processing = 0;
             });
         });
@@ -539,7 +538,7 @@ echo '
                     //alert("save_keys feedback - "+data);
 
                 }).fail(function () {
-                    alert("Can\'t save keys in router\'s flash memory.");
+                    alert(i18next.t("lng.cantsavedata"));
                     processing = 0;
                 });
 
@@ -573,15 +572,15 @@ echo '
 					}).done(function( data, textStatus, jqXHR ) {
 						//alert("save_keys feedback - "+data);
 					}).fail(function () {
-						alert("Can\'t save keys in router\'s flash memory.");
+						alert(i18next.t("lng.cantsavedata"));
 						processing = 0;
 					});
 				}).fail(function () {
-					alert("Error, please try later.");
+					alert(i18next.t("lng.something_wrong"));
 				});
 
             }).fail(function () {
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
                 processing = 0;
             });
         });
@@ -623,7 +622,7 @@ return false;
                 $("#showReferendum").hide()
                     hideOverlay()
                   $("#successDiv").show()
-        $("div#successMessage").html("<h3>You have voted "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
+        $("div#successMessage").html("<h3> " + i18next.t("lng.youhavevoted") + data.vote + " " + i18next.t("lng.onreferrendum") + " "+ data.ref_index +"</h3>")
         $("#backSuccess").click(function(){
         $("#successDiv").hide()
          $("div#successMessage").html("")
@@ -634,7 +633,7 @@ return false;
                 console.log(data);
             }).fail(function () {
                 processing = 0;
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
         $("#allRef").on("click", "#voteRefNo", function () {
@@ -675,7 +674,7 @@ return false;
                 $("#showReferendum").hide()
                     hideOverlay()
                   $("#successDiv").show()
-        $("div#successMessage").html("<h3>You have voted "+ data.vote+" on Referendum "+ data.ref_index +"</h3>")
+        $("div#successMessage").html("<h3> " + i18next.t("lng.youhavevoted") + data.vote + " " + i18next.t("lng.onreferrendum") + " "+ data.ref_index +"</h3>")
         $("#backSuccess").click(function(){
         $("#successDiv").hide()
          $("div#successMessage").html("")
@@ -685,7 +684,7 @@ return false;
                 }
             }).fail(function () {
                 processing = 0;
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
         $(document).on("click", "#second", function () {
@@ -722,7 +721,7 @@ return false;
                 $("#showProposal").hide()
                     hideOverlay()
                   $("#successDiv").show()
-        $("div#successMessage").html("<h3> You Seconded Proposal "+ data.prop_index +"</h3>")
+        $("div#successMessage").html("<h3> " + i18next.t("lng.yousecondedproposal") + data.prop_index +"</h3>")
         $("#backSuccess").click(function(){
         $("#successDiv").hide()
          $("div#successMessage").html("")
@@ -773,7 +772,7 @@ return false;
             }).fail(function (response) {
                 console.log(response)
                 processing = 0;
-                alert("Error, please try later.");
+                alert(i18next.t("lng.something_wrong"));
             });
         });
 

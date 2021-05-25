@@ -42,26 +42,26 @@ function UpdateState()
 				$("#ping1").removeClass("red");
 				if (jsonObj.wan1 == 1 && jsonObj.wan1cable != "0") {
 					$("#ping1").addClass("green");
-					$("#ping1label").text("Internet Connected");
+					$("#ping1label").text(i18next.t("lng.internetconnected"));
 				} else if (jsonObj.wan1cable == "0") {
 					$("#ping1").addClass("red");
-					$("#ping1label").text("WAN No ethernet cable connected");
+					$("#ping1label").text(i18next.t("lng.wannocable2"));
 					$(".last-error").text(wannocable);
 				} else if (jsonObj.wan1 == 4 || jsonObj.wan1 == 3 || jsonObj.wan1 == 0) {
 					if (jsonObj.wan1 == 0) {
 						$("#ping1").addClass("red");
-						$("#ping1label").text("Internet Disconnected");
+						$("#ping1label").text();
 					} else if (jsonObj.wan1 == 3) {
 						$("#ping1").addClass("red");
-						$("#ping1label").text("WAN Connection, DNS Problem");
+						$("#ping1label").text(i18next.t("lng.wandnsproblem"));
 					} else if (jsonObj.wan1 == 4) {
 						$("#ping1").addClass("red");
-						$("#ping1label").text("WAN Connection, DNS-blocker detected, try to toggle dns-unblocker-feature");
-						$(".last-error").text("Your ISP is blocking the "+shortbrand+"-DNS. Click here and turn off DNS-Unblocker. Then select your desired location again.");
+						$("#ping1label").text(i18next.t("lng.wandnsproblem2"));
+						$(".last-error").text(i18next.t("lng.wandnsproblem3"));
 					}
 				} else {
 					$("#ping1").addClass("grey");
-					$("#ping1label").text("WAN unknown state");
+					$("#ping1label").text(i18next.t("lng.wanunknownstate"));
 					$(".last-error").html(wanunknown);
 				}
 				
@@ -70,24 +70,24 @@ function UpdateState()
 				$("#ping2").removeClass("red");
 				if (jsonObj.vpn1 == 1) {
 					$("#ping2").addClass("green");
-					$("#ping2label").text("VPN Connected");
+					$("#ping2label").text(i18next.t("lng.vpnconnected"));
 					$("#first-screen").hide();
 					$("#third-connect").show();
 				} else if (jsonObj.vpn1 == 0) {
 					$("#ping2").addClass("grey");
-					$("#ping2label").text("VPN Disconnected");
+					$("#ping2label").text(i18next.t("lng.vpndisconnected"));
 					$("#first-screen").show();
 					$("#third-connect").hide();
 				} else if (jsonObj.vpn1 == 3) {
 					$("#ping2").addClass("red");
-					$("#ping2label").text("VPN Connected, DNS Problem");
-					$(".last-error").text("Your ISP is blocking the "+shortbrand+"-DNS. Click here and turn off DNS-Unblocker. Then select your desired location again.");
+					$("#ping2label").text(i18next.t("lng.vpndnsproblem"));
+					$(".last-error").text(i18next.t("lng.vpndnsproblem2"));
 					$("#first-screen").hide();
 					$("#third-connect").show();
 				} else {
 					$("#ping2").addClass("red");
-					$("#ping2label").text("VPN Connected, No Internet - try different location");
-					$(".last-error").text("Location Down! Please disconnect and try another location.");
+					$("#ping2label").text(i18next.t("lng.vpnnoinet"));
+					$(".last-error").text(i18next.t("lng.vpnnoinet2"));
 					$("#first-screen").hide();
 					$("#third-connect").show();
 				}
@@ -124,7 +124,7 @@ function UpdateState()
 		catch (e) {
 			if (hidelogos == 0) {
 				$("#ping1").addClass("grey");
-				$("#ping1label").text("WAN unknown state");
+				$("#ping1label").text(i18next.t("lng.wanunknownstate"));
 				$(".last-error").html(wanunknown);
 			}
 			

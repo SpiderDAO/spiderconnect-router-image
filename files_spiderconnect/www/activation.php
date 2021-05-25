@@ -1,15 +1,39 @@
 <?php require_once('layout/content.php');
 echo '
+<style>
+@media (max-width: 992px) {
+	.col-sm-6 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 50%;
+		flex: 0 0 50%;
+		max-width: 50%;
+	}
+}
+@media (max-width: 768px) {
+	.col-sm-6 {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+@media (max-width: 768px) {
+	.remote-network {
+		padding-top: 100px;
+	}
+}
+</style>
+
 <body class="overflow cr-account">
 <div class="wapper-wb">
-    <div class="main-container center-content system-activate">
+    <div class="main-container center-content system-activate" style="z-index: 100">
         <div class="container">
             <div class="row">
                 <div class="remote-network">
-                    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
                         <div class="remote-form">
                             <div class="remote-head remote-head-1">
-                                <h3>Activate<br>
+                                <h3><span data-i18n="lng.activate">Activate</span><br>
                                     '.file_get_contents("/brand/brand.txt").'
                                 </h3>
                             </div>
@@ -20,26 +44,26 @@ echo '
                                                placeholder="Email" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control placeholder-wh" name="password" id="email"
-                                               placeholder="Password" required>
+                                        <input type="password" class="form-control placeholder-wh" name="password" id="password"
+                                               data-i18n="[placeholder]lng.password" placeholder="Password" required>
                                     </div>
                                     ';
 									if (isset($_GET['failed'])) {
 										echo '
                                         <div class="form-group">
-                                            <span class="error-pwd">You entered an incorrect username or password.</span>
+                                            <span class="error-pwd" data-i18n="lng.bad_email" >You entered an incorrect username or password.</span>
                                         </div>';
                                     }
                                     if (isset($_GET['noconnection'])) {
 										echo '
                                         <div class="form-group">
-                                            <span class="error-pwd">No Internet Connection.</span>
+                                            <span class="error-pwd" data-i18n="lng.no_internet">No Internet Connection.</span>
                                         </div>';
                                     }
                                     if (isset($_GET['wrong'])) {
 										echo '
                                         <div class="form-group">
-                                            <span class="error-pwd">Something went wrong, please try again later.</span>
+                                            <span class="error-pwd" data-i18n="lng.something_wrong">Something went wrong, please try again later.</span>
                                         </div>';
                                     }
                                     if (isset($_GET['invalid'])) {
@@ -52,19 +76,19 @@ echo '
 										<div style="width: 100%; text-align: center;">
 											Create new account?
 											<div>
-												<a style="text-decoration: underline;" href="'.file_get_contents("/brand/reghere.txt").'" target="_blank">Register here</a>
+												<a style="text-decoration: underline;" href="'.file_get_contents("/brand/reghere.txt").'" target="_blank" data-i18n="lng.reg_here">Register here</a>
 											</div>
 										</div>
-                                        <table width="80%">
+                                        <table width="100%">
                                         <tbody>
                                         <tr>
-                                            <td>
+                                            <td width="50%">
                                                 <a href="/wan-setup.php">
-                                                    <button type="button" class="btn btn-default mx-auto px-auto" style="background: black;font-size: 14px;width:95%;">Setup WAN</button>
+                                                    <button type="button" class="btn btn-default mx-auto px-auto" style="background: black;font-size: 14px;width:95%;" data-i18n="lng.wan_setup">Setup WAN</button>
                                                 </a>
                                             </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-default mx-auto px-auto w-90 pull-left  text-center" style="text-align: center;">Activate</button>
+                                            <td width="50%">
+                                                <button type="submit" class="btn btn-default mx-auto px-auto w-90 pull-left  text-center" style="text-align: center;" data-i18n="lng.activate">Activate</button>
                                             </td>
                                         </tr>
                                     </tbody>

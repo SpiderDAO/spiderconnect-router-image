@@ -35,12 +35,20 @@ add_modem3="kmod-mppe kmod-usb-net kmod-usb-net-cdc-ether kmod-usb-net-rndis kmo
 add_extroot="blkid mount-utils swap-utils e2fsprogs fdisk kmod-fs-ext4 block-mount kmod-usb-storage"
 add_shaper="kmod-tcp-bbr tc kmod-ifb"
 add_uboot="kmod-mtd-rw uboot-envtools"
+add_lang="luci-i18n-base-ko luci-i18n-base-es luci-i18n-base-ru"
 
 datetime=$(date +"%Y-%m-%d_%H.%M.%S")
 scriptdir=$(pwd)
 find . \( -name "*.bak" -o -name "*.trx" -o -name "*.chk" -o -name "*.img.gz" \) -type f -delete
 rm -f *.bin
 builded=false
+
+#github auto-builder optimizations
+if [ ! -d "$imagebuilder_path/openwrt-imagebuilder-$openwrtver-ramips-mt7621.Linux-x86_64" ]; then
+	wget -qO- "https://downloads.openwrt.org/releases/$openwrtver/targets/ramips/mt7621/openwrt-imagebuilder-$openwrtver-ramips-mt7621.Linux-x86_64.tar.xz" | tar Jvxf - -C $imagebuilder_path
+fi
+#github auto-builder optimizations end
+
 
 for profile in ${profiles[*]};do
 	for dir in $(find $imagebuilder_path -mindepth 1 -maxdepth 1 -type d -name "*imagebuilder-$openwrtver*"); do
@@ -56,7 +64,7 @@ for profile in ${profiles[*]};do
 		find ./bin/ \( -name "*.bak" -o -name "*.bin" -o -name "*.trx" -o -name "*.chk" -o -name "*.img.gz" \) -type f -delete
 		
 		#old files?
-		rm -rf "./$files"		
+		rm -rf "./$files"
 
 		#php obfuscator
 		rm -rf /tmp/yakpro-po/
@@ -67,7 +75,7 @@ for profile in ${profiles[*]};do
 		#php obfuscator end
 		
 		#uncomment next line if need raw
-		#cp -r "$scriptdir/$files" .
+		cp -r "$scriptdir/$files" .
 
 		chmod 777 -R ./$files/
 		
@@ -75,9 +83,9 @@ for profile in ${profiles[*]};do
 			#delete line 265 in ./include/image-commands.mk
 			add_dynamic="$removeppp $removeipv6 $removeusb "
 		elif [ "$profile" == "zbt-we1326" ]; then 
-			add_dynamic="luci $add_extroot $add_uboot"
+			add_dynamic="luci $add_extroot $add_uboot $add_lang"
 		elif [ "$profile" == "zbt-wg3526-16M" ]; then 
-			add_dynamic="luci $add_modem $add_modem2 $add_modem3 $add_extroot $add_uboot"
+			add_dynamic="luci $add_modem $add_modem2 $add_modem3 $add_extroot $add_uboot $add_lang"
 		else
 			add_dynamic="luci "
 		fi
@@ -132,7 +140,7 @@ for profile in ${profiles[*]};do
 			#php obfuscator end
 			
 			#uncomment next line if need raw
-			#cp -r "$scriptdir/$files" .
+			cp -r "$scriptdir/$files" .
 			
 			cd "$resellerpath"
 			cp -r . "$dir/$files/"
